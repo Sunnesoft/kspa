@@ -234,7 +234,9 @@ func printCycle(vert int, path []int) {
 	fmt.Println(vert)
 }
 
-func (g *MultiGraph) dfsStacked(src int, target int) {
+type EdgeSeq []*MultiEdge
+
+func (g *MultiGraph) dfsStacked(src int, target int, deepLimit int, topK int) (pq PriorityQueue, cycles []map[uint64]EdgeSeq) {
 	type vm struct {
 		Vert   int
 		Deep   int
@@ -242,39 +244,25 @@ func (g *MultiGraph) dfsStacked(src int, target int) {
 		Index  int
 	}
 
-	vertexCount := len(g.Verteces)
-
-	visited := make([]bool, vertexCount)
-
-	deepLimit := 5
-	// bufferFactor := 2
-
-	s := make([]vm, 0) // vertexCount*bufferFactor)
-	counter := 0
-
-	s = append(s, vm{src, 1, -1, 0})
-
-	// si := &s[counter]
-	// si.Vert = src
-	// si.Deep = 1
-	// si.Parent = -1
-	// si.Index = 0
-	counter++
-
-	pathCount := 0
-
-	path := make([]int, deepLimit+1)
-	psa := make([]float64, deepLimit+2)
-	edges := make([]*MultiEdge, deepLimit+1)
-	cycles := make([][][]*MultiEdge, vertexCount)
-
 	var level_m1 int = 0
 	var level int = 0
 	var node vm
 
-	topK := 100
-	pq := NewPriorityQueue(0, topK)
+	vertexCount := len(g.Verteces)
+	visited := make([]bool, vertexCount)
+	s := make([]vm, 0)
+	path := make([]int, deepLimit+1)
+	psa := make([]float64, deepLimit+2)
+	edges := make(EdgeSeq, deepLimit+1)
+	cycles = make([]map[uint64]EdgeSeq, vertexCount)
+	pq = NewPriorityQueue(0, topK)
+
 	maxWeight := math.Inf(-1)
+	pathCount := 0
+	counter := 0
+
+	s = append(s, vm{src, 1, -1, 0})
+	counter++
 
 	for counter > 0 {
 		counter--
@@ -290,25 +278,28 @@ func (g *MultiGraph) dfsStacked(src int, target int) {
 		}
 
 		if visited[node.Vert] {
-			// printCycle(node.Vert, path[:level-1])
-
 			indx := firstIndexOf(node.Vert, path[:level-1])
 			edge := g.p[node.Parent][node.Index]
 			weight := psa[level-1] + edge.weight - psa[indx+1]
+
+			bits := math.Float64bits(weight) >> 2
 
 			if weight >= 0.0 {
 				continue
 			}
 
 			if cycles[path[indx]] == nil {
-				cycles[path[indx]] = make([][]*MultiEdge, 0)
+				cycles[path[indx]] = make(map[uint64]EdgeSeq)
 			}
 
-			cedges := make([]*MultiEdge, deepLimit)
-			edges[level_m1] = edge
-			copy(cedges, edges[1:level_m1])
+			if _, ok := cycles[path[indx]][bits]; !ok {
+				cedges := make(EdgeSeq, level-1)
+				edges[level_m1] = edge
+				copy(cedges, edges[1:level])
 
-			cycles[path[indx]] = append(cycles[path[indx]], cedges)
+				cycles[path[indx]][bits] = cedges
+			}
+
 			continue
 		}
 
@@ -359,19 +350,14 @@ func (g *MultiGraph) dfsStacked(src int, target int) {
 			}
 
 			s = append(s, vm{u, level + 1, node.Vert, i})
-
-			// si := &s[counter]
-			// si.Vert = u
-			// si.Deep = level + 1
-			// si.Parent = node.Vert
-			// si.Index = i
 			counter++
 		}
 	}
 
 	fmt.Println(pathCount)
 	fmt.Println(*(pq[0]), *(pq[topK-1]))
-	// fmt.Println(cycles[1])
+	fmt.Println(cycles)
+	return
 }
 
 func (g *MultiGraph) Bfs(srcId int) {
@@ -423,7 +409,7 @@ func (g *MultiGraph) Bfs(srcId int) {
 	g.marked = make([]bool, vertexCount)
 	g.pathCount = 0
 	// g.dfs(src, src, 0)
-	g.dfsStacked(src, src)
+	g.dfsStacked(src, src, 5, 100)
 
 	fmt.Println(g.pathCount)
 }
