@@ -2,12 +2,17 @@ package graph_shortest_paths
 
 import (
 	"container/heap"
+	"encoding/json"
 )
 
 type Item struct {
-	value    []*MultiEdge
+	value    interface{}
 	priority float64
 	index    int
+}
+
+func (pq Item) MarshalJSON() ([]byte, error) {
+	return json.Marshal(&pq.value)
 }
 
 type PriorityQueue []*Item
@@ -41,13 +46,13 @@ func (pq *PriorityQueue) Pop() interface{} {
 	return item
 }
 
-func (pq *PriorityQueue) Append(value []*MultiEdge, priority float64) {
+func (pq *PriorityQueue) Append(value interface{}, priority float64) {
 	item := &Item{value: value, priority: priority}
 	pq.Push(item)
 }
 
-func (pq *PriorityQueue) Update(item *Item, value []*MultiEdge, priority float64) {
-	copy(item.value, value)
+func (pq *PriorityQueue) Update(item *Item, value interface{}, priority float64) {
+	item.value = value
 	item.priority = priority
 	heap.Fix(pq, item.index)
 }
@@ -68,4 +73,25 @@ func (pq *PriorityQueue) PopItem() (item *Item) {
 func NewPriorityQueue(size int, capacity int) PriorityQueue {
 	pq := make(PriorityQueue, size, capacity)
 	return pq
+}
+
+func PriorityQueue2SortedArray(pq PriorityQueue, asc bool) (sa PriorityQueue) {
+	n := pq.Len()
+	sa = NewPriorityQueue(pq.Len(), pq.Len())
+	index := 0
+	inc := +1
+
+	if !asc {
+		index = n - 1
+		inc = -1
+	}
+
+	for pq.Len() > 0 {
+		item := pq.PopItem()
+		item.index = index
+		sa[index] = item
+		index += inc
+	}
+
+	return
 }
