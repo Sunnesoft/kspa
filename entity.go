@@ -2,18 +2,15 @@ package graph_shortest_paths
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
-	"os"
 	"strconv"
 )
 
 type Entity struct {
-	EntityId  string  `json:"EntityId"`
-	Id1       int     `json:"Id1"`
-	Id2       int     `json:"Id2"`
-	Relation  float64 `json:"Relation"`
-	EntityIdi int     `json:"EntityIdi,omitempty"`
+	EntityId string  `json:"EntityId"`
+	Id1      int     `json:"Id1"`
+	Id2      int     `json:"Id2"`
+	Relation float64 `json:"Relation"`
 }
 
 type EntityRaw struct {
@@ -40,17 +37,16 @@ func (b *Entity) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func LoadFromJson(fn string) []Entity {
-	jsonFile, err := os.Open(fn)
+type EntitySeq []*Entity
+
+func FromJsonFile(fn string) (seq EntitySeq) {
+	byteValue, err := LoadText(fn)
+
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	defer jsonFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	res := make([]Entity, 0)
-	json.Unmarshal(byteValue, &res)
-	return res
+	seq = make(EntitySeq, 0)
+	json.Unmarshal(byteValue, &seq)
+	return seq
 }
