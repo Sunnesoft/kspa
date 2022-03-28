@@ -533,6 +533,11 @@ func processOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 	path := make(EdgeSeq, deepLimit)
 
 	res = NewPriorityQueue(0, topK)
+
+	if pq.Len() == 0 {
+		return
+	}
+
 	maxWeight := pq[0].priority
 
 	for _, edges := range pq {
