@@ -40,7 +40,7 @@ func TestDfsMemo_TopKShortestPaths(t *testing.T) {
 		{
 			name: "large_top100_lim5",
 			fields: fields{
-				deepLimit: 7,
+				deepLimit: 5,
 			},
 			args: args{
 				topK:  100,

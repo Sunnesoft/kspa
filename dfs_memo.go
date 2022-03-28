@@ -5,6 +5,13 @@ import "math"
 var MIN_WEIGHT float64 = math.Inf(-1)
 var MAX_WEIGHT float64 = math.Inf(1)
 
+const (
+	THR_ZERO = iota
+	THR_MEAN
+	THR_MEAN_STDDEV
+	THR_CUSTOM
+)
+
 type TreeNode struct {
 	base   *MultiEdge
 	src    int
@@ -21,10 +28,17 @@ func NewTreeNode(base *MultiEdge, src int, target int, level int) *TreeNode {
 	}
 }
 
+type TreeItemStat struct {
+	minWeight   float64
+	maxWeight   float64
+	meanWeight  float64
+	mean2Weight float64
+	pathsCount  float64
+}
+
 type TreeItem struct {
-	minWeight float64
-	maxWeight float64
-	seq       []*TreeNode
+	stat TreeItemStat
+	seq  []*TreeNode
 }
 
 type DfsMemo struct {
@@ -40,6 +54,9 @@ type DfsMemo struct {
 
 	pq        PriorityQueue
 	maxWeight float64
+
+	threshold     float64
+	thresholdMode int
 }
 
 func (st *DfsMemo) TopKShortestPaths(g *MultiGraph, srcId int, topK int) (res PriorityQueue) {
@@ -58,18 +75,50 @@ func (st *DfsMemo) TopKShortestPaths(g *MultiGraph, srcId int, topK int) (res Pr
 	return
 }
 
-func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, float64, float64) {
+func (st *DfsMemo) SetTreshold(t float64) {
+	st.threshold = t
+	st.thresholdMode = THR_CUSTOM
+}
+
+func (st *DfsMemo) SetTresholdMode(mode int) {
+	st.thresholdMode = mode
+}
+
+func (st *DfsMemo) prepareThreshold(src int, target int, level int) {
+	switch st.thresholdMode {
+	case THR_ZERO:
+		st.threshold = 0
+	case THR_MEAN:
+		nodes := st.memo[src][target][level]
+		st.threshold = nodes.stat.meanWeight
+	case THR_MEAN_STDDEV:
+		nodes := st.memo[src][target][level]
+		st.threshold = nodes.stat.meanWeight - math.Sqrt((nodes.stat.mean2Weight-nodes.stat.meanWeight*nodes.stat.meanWeight)/nodes.stat.pathsCount)
+	}
+}
+
+func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, TreeItemStat) {
 	if level >= st.deepLimit {
-		return false, MIN_WEIGHT, MAX_WEIGHT
+		return false, TreeItemStat{
+			minWeight:   MIN_WEIGHT,
+			maxWeight:   MAX_WEIGHT,
+			meanWeight:  0,
+			mean2Weight: 0,
+			pathsCount:  0}
 	}
 
 	if item := st.inMemo(src, target, level); item != nil {
-		return true, item.minWeight, item.maxWeight
+		return true, item.stat
 	}
 
 	res := make([]*TreeNode, 0)
-	minWeight := MAX_WEIGHT
-	maxWeight := MIN_WEIGHT
+	stat := TreeItemStat{
+		minWeight:   MAX_WEIGHT,
+		maxWeight:   MIN_WEIGHT,
+		meanWeight:  0,
+		mean2Weight: 0,
+		pathsCount:  0,
+	}
 
 	for _, edge := range st.g.Succ(src) {
 		v := edge.data.Id2
@@ -77,38 +126,45 @@ func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, float6
 			res = append(res, NewTreeNode(edge, -1, -1, -1))
 
 			weight := edge.weight
+			stat.meanWeight += weight
+			stat.mean2Weight += weight * weight
+			stat.pathsCount += 1
 
-			if weight < minWeight {
-				minWeight = weight
+			if weight < stat.minWeight {
+				stat.minWeight = weight
 			}
 
-			if weight > maxWeight {
-				maxWeight = weight
+			if weight > stat.maxWeight {
+				stat.maxWeight = weight
 			}
 
 			continue
 		}
 
-		ok, minw, maxw := st.processOptEdges(v, target, level+1)
+		ok, statw := st.processOptEdges(v, target, level+1)
 
 		if ok {
 			res = append(res, NewTreeNode(edge, v, target, level+1))
 
-			minw += edge.weight
-			maxw += edge.weight
+			minw := statw.minWeight + edge.weight
+			maxw := statw.maxWeight + edge.weight
 
-			if minw < minWeight {
-				minWeight = minw
+			if minw < stat.minWeight {
+				stat.minWeight = minw
 			}
 
-			if maxw > maxWeight {
-				maxWeight = maxw
+			if maxw > stat.maxWeight {
+				stat.maxWeight = maxw
 			}
+
+			stat.meanWeight += statw.meanWeight + statw.pathsCount*edge.weight
+			stat.mean2Weight += statw.mean2Weight + statw.pathsCount*(edge.weight*edge.weight)
+			stat.pathsCount += statw.pathsCount
 		}
 	}
 
-	st.toMemo(&TreeItem{seq: res, minWeight: minWeight, maxWeight: maxWeight}, src, target, level)
-	return true, minWeight, maxWeight
+	st.toMemo(&TreeItem{seq: res, stat: stat}, src, target, level)
+	return true, stat
 }
 
 func (st *DfsMemo) initMemo() {
@@ -149,6 +205,7 @@ func (st *DfsMemo) traceMemo(src int, target int) {
 	levels := st.memo[src][target]
 
 	for level, _ := range levels {
+		st.prepareThreshold(src, target, level)
 		st.nextMemoItem(src, target, level)
 	}
 }
@@ -160,11 +217,11 @@ func (st *DfsMemo) nextMemoItem(src int, target int, level int) {
 
 	nodes := st.memo[src][target][level]
 
-	if st.psa[level]+nodes.minWeight >= 0 {
+	if st.psa[level]+nodes.stat.minWeight >= st.threshold {
 		return
 	}
 
-	if st.maxWeight != MIN_WEIGHT && st.psa[level]+nodes.minWeight > st.maxWeight {
+	if st.maxWeight != MIN_WEIGHT && st.psa[level]+nodes.stat.minWeight > st.maxWeight {
 		return
 	}
 
