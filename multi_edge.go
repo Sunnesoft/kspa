@@ -24,11 +24,11 @@ func (e *MultiEdge) Weight() float64 {
 }
 
 func (e *MultiEdge) U() int {
-	return e.data.Id1
+	return e.data.Id1i
 }
 
 func (e *MultiEdge) V() int {
-	return e.data.Id2
+	return e.data.Id2i
 }
 
 func Weight(a *Entity) float64 {

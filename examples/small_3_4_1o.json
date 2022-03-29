@@ -1,0 +1,20 @@
+[
+	{
+		"in": 1,
+		"out": 1,
+		"chain": "entityId5 -\u003e entityId8 -\u003e entityId9",
+		"value": 10700.999999999998
+	},
+	{
+		"in": 1,
+		"out": 1,
+		"chain": "entityId1 -\u003e entityId7 -\u003e entityId8 -\u003e entityId9",
+		"value": 1.1484
+	},
+	{
+		"in": 1,
+		"out": 1,
+		"chain": "entityId1 -\u003e entityId2 -\u003e entityId3",
+		"value": 1.025
+	}
+]

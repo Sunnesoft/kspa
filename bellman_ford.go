@@ -114,7 +114,7 @@ func (g *MultiGraph) Custom(srcId int) {
 	for i := 1; i < deepLimit; i++ {
 		for j := 0; j < n; j++ {
 			edge := edges[j]
-			u, v, cost := edge.data.Id1, edge.data.Id2, edge.weight
+			u, v, cost := edge.data.Id1i, edge.data.Id2i, edge.weight
 
 			if du[u] != infinity {
 				if duc := du[u] + cost; duc < du[v] {
@@ -138,7 +138,7 @@ func (g *MultiGraph) Custom(srcId int) {
 	var cedge *MultiEdge
 
 	for _, edge := range edges {
-		u, v, cost := edge.data.Id1, edge.data.Id2, edge.weight
+		u, v, cost := edge.data.Id1i, edge.data.Id2i, edge.weight
 		if du[u] != infinity && dv[v] != infinity && du[u]+cost+dv[v] < d {
 			d = du[u] + cost + dv[v]
 			cedge = edge

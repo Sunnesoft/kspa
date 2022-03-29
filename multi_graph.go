@@ -23,13 +23,13 @@ func (g *MultiGraph) buildVerteces() {
 			g.Verteces[v.Id1] = j
 			j++
 		}
-		g.entities[i].Id1 = g.Verteces[v.Id1]
+		g.entities[i].Id1i = g.Verteces[v.Id1]
 
 		if g.Verteces[v.Id2] == -1 {
 			g.Verteces[v.Id2] = j
 			j++
 		}
-		g.entities[i].Id2 = g.Verteces[v.Id2]
+		g.entities[i].Id2i = g.Verteces[v.Id2]
 	}
 }
 
@@ -38,7 +38,7 @@ func (g *MultiGraph) getGroupedEdgesById1(bufferSize int) (res []EntitySeq) {
 	res = make([]EntitySeq, n)
 
 	for i, v := range g.entities {
-		lab := v.Id1
+		lab := v.Id1i
 		if res[lab] == nil {
 			res[lab] = make(EntitySeq, 0, bufferSize)
 		}
@@ -55,10 +55,10 @@ func (g *MultiGraph) buildEdges(bufferSize int) {
 	for _, d := range groupedEdgesById1 {
 		groupedById2 := make(map[int][]*Entity)
 		for _, e := range d {
-			if _, ok := groupedById2[e.Id2]; !ok {
-				groupedById2[e.Id2] = make([]*Entity, 0)
+			if _, ok := groupedById2[e.Id2i]; !ok {
+				groupedById2[e.Id2i] = make([]*Entity, 0)
 			}
-			groupedById2[e.Id2] = append(groupedById2[e.Id2], e)
+			groupedById2[e.Id2i] = append(groupedById2[e.Id2i], e)
 		}
 
 		for _, edges := range groupedById2 {
@@ -83,16 +83,16 @@ func (g *MultiGraph) setAdjacent() {
 	g.successors = make([]MEdgeSeq, n)
 
 	for _, v := range g.Edges {
-		if g.predecessors[v.V()] == nil {
-			g.predecessors[v.V()] = make(MEdgeSeq, 0, 1)
+		if g.predecessors[v.data.Id2i] == nil {
+			g.predecessors[v.data.Id2i] = make(MEdgeSeq, 0, 1)
 		}
 
-		if g.successors[v.U()] == nil {
-			g.successors[v.U()] = make(MEdgeSeq, 0, 1)
+		if g.successors[v.data.Id1i] == nil {
+			g.successors[v.data.Id1i] = make(MEdgeSeq, 0, 1)
 		}
 
-		g.predecessors[v.V()] = append(g.predecessors[v.V()], v)
-		g.successors[v.U()] = append(g.successors[v.U()], v)
+		g.predecessors[v.data.Id2i] = append(g.predecessors[v.data.Id2i], v)
+		g.successors[v.data.Id1i] = append(g.successors[v.data.Id1i], v)
 	}
 }
 

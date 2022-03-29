@@ -2,4 +2,6 @@ module github.com/Sunnesoft/graph_shortest_paths
 
 go 1.17
 
-require github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3
+require golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
+
+require golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect

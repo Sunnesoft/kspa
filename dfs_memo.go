@@ -2,9 +2,6 @@ package graph_shortest_paths
 
 import "math"
 
-var MIN_WEIGHT float64 = math.Inf(-1)
-var MAX_WEIGHT float64 = math.Inf(1)
-
 const (
 	THR_ZERO = iota
 	THR_MEAN
@@ -42,36 +39,69 @@ type TreeItem struct {
 }
 
 type DfsMemo struct {
-	deepLimit int
-	topK      int
-
-	g *MultiGraph
-
-	psa   []float64
-	edges MEdgeSeq
-
-	memo map[int]map[int]map[int]*TreeItem
-
-	pq        PriorityQueue
-	maxWeight float64
-
+	Dfs
+	memo          map[int]map[int]map[int]*TreeItem
 	threshold     float64
 	thresholdMode int
 }
 
-func (st *DfsMemo) TopKShortestPaths(g *MultiGraph, srcId int, topK int) (res PriorityQueue) {
-	st.psa = make([]float64, st.deepLimit+2)
-	st.edges = make(MEdgeSeq, st.deepLimit+1)
+func (st *DfsMemo) Init() {
+	st.initMemo()
+}
+
+func (st *DfsMemo) TopK(g *MultiGraph, srcId int, targetId int, topK int) (res PriorityQueue) {
 	st.g = g
-	st.topK = topK
-	st.maxWeight = MIN_WEIGHT
-	st.pq = NewPriorityQueue(0, topK)
+	st.SetTopKValue(topK)
 
 	src := g.Verteces[srcId]
-	st.initMemo()
-	st.processOptEdges(src, src, 0)
-	st.traceMemo(src, src)
-	res = processOutsideEdges(st.pq, st.deepLimit, topK, false)
+	target := g.Verteces[targetId]
+	st.processOptEdges(src, target, 0)
+	st.traceMemo(src, target)
+	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false)
+	return
+}
+
+func (st *DfsMemo) TopKOneToOne(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
+	st.g = g
+
+	n := len(srcIds)
+	res = make([]PriorityQueue, 0)
+
+	for i := 0; i < n; i++ {
+		src := g.Verteces[srcIds[i]]
+		target := g.Verteces[targetIds[i]]
+
+		st.SetTopKValue(topK)
+		st.processOptEdges(src, target, 0)
+		st.traceMemo(src, target)
+		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false))
+	}
+
+	return
+}
+
+func (st *DfsMemo) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
+	st.g = g
+
+	n := len(srcIds)
+	m := len(targetIds)
+
+	res = make([]PriorityQueue, 0)
+
+	for i := 0; i < n; i++ {
+		st.SetTopKValue(topK)
+
+		src := g.Verteces[srcIds[i]]
+
+		for j := 0; j < m; j++ {
+			target := g.Verteces[targetIds[j]]
+			st.processOptEdges(src, target, 0)
+			st.traceMemo(src, target)
+		}
+
+		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false))
+	}
+
 	return
 }
 
@@ -121,7 +151,7 @@ func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, TreeIt
 	}
 
 	for _, edge := range st.g.Succ(src) {
-		v := edge.data.Id2
+		v := edge.data.Id2i
 		if target == v {
 			res = append(res, NewTreeNode(edge, -1, -1, -1))
 
@@ -168,6 +198,7 @@ func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, TreeIt
 }
 
 func (st *DfsMemo) initMemo() {
+	st.memo = nil
 	st.memo = make(map[int]map[int]map[int]*TreeItem)
 }
 
@@ -202,12 +233,8 @@ func (st *DfsMemo) toMemo(res *TreeItem, src int, target int, level int) {
 }
 
 func (st *DfsMemo) traceMemo(src int, target int) {
-	levels := st.memo[src][target]
-
-	for level, _ := range levels {
-		st.prepareThreshold(src, target, level)
-		st.nextMemoItem(src, target, level)
-	}
+	st.prepareThreshold(src, target, 0)
+	st.nextMemoItem(src, target, 0)
 }
 
 func (st *DfsMemo) nextMemoItem(src int, target int, level int) {

@@ -28,11 +28,11 @@ func (e *SingleEdge) Weight() float64 {
 }
 
 func (e *SingleEdge) U() int {
-	return e.data.Id1
+	return e.data.Id1i
 }
 
 func (e *SingleEdge) V() int {
-	return e.data.Id2
+	return e.data.Id2i
 }
 
 func (seq EdgeSeq) ReverseEdgeSeq() {
@@ -56,10 +56,11 @@ func (seq EdgeSeq) GetRelation() float64 {
 func (seq EdgeSeq) MarshalJSON() ([]byte, error) {
 	s := make([]string, 0, len(seq))
 	value := 1.0
-	var id int64 = -1
+	var in int64 = -1
+	var out int64 = -1
 
 	if len(seq) > 0 {
-		id = int64(seq[0].data.Id1)
+		in = int64(seq[0].data.Id1)
 	}
 
 	for _, edge := range seq {
@@ -68,16 +69,19 @@ func (seq EdgeSeq) MarshalJSON() ([]byte, error) {
 		}
 		s = append(s, edge.data.EntityId)
 		value *= edge.data.Relation
+		out = int64(edge.data.Id2)
 	}
 
 	chain := strings.Join(s, " -> ")
 
 	return json.Marshal(&struct {
-		Id    int64   `json:"id"`
+		In    int64   `json:"in"`
+		Out   int64   `json:"out"`
 		Chain string  `json:"chain"`
 		Value float64 `json:"value"`
 	}{
-		Id:    id,
+		In:    in,
+		Out:   out,
 		Chain: chain,
 		Value: value,
 	})

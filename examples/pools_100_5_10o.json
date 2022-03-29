@@ -1,0 +1,602 @@
+[
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6280 -\u003e entity-7297-b",
+		"value": 4814.764568808595
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6087-b -\u003e entity-11955",
+		"value": 4747.459825043354
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-117-b -\u003e entity-11955",
+		"value": 4744.110152281603
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-294-b -\u003e entity-348 -\u003e entity-18-b",
+		"value": 4743.421715296511
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11821-b -\u003e entity-11955",
+		"value": 4741.83677571964
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-6007 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4739.492433159692
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-6007 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4737.7578032139745
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-6043 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4737.510310475816
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6020-b -\u003e entity-6044 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4736.92930940659
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-14283 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4736.642539061584
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-30 -\u003e entity-68-b",
+		"value": 4735.994537608183
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-6043 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4735.776405976845
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-14283 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4734.908952162504
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11771-b -\u003e entity-198",
+		"value": 4729.485177032722
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6039-b -\u003e entity-51",
+		"value": 4729.2341309882195
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4727.433932655161
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-14 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4726.675022598653
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6050-b -\u003e entity-6020",
+		"value": 4726.417556356645
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11723-b -\u003e entity-6013-b",
+		"value": 4725.497267137886
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-14 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4724.945083759527
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6021 -\u003e entity-7023-b",
+		"value": 4724.322481664282
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11723-b -\u003e entity-6146-b",
+		"value": 4724.304646855719
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-310-b -\u003e entity-189",
+		"value": 4723.917959710603
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11723-b -\u003e entity-6080-b",
+		"value": 4723.443983964612
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-8 -\u003e entity-7023-b",
+		"value": 4723.091686288744
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6005-b -\u003e entity-6013-b",
+		"value": 4722.604014958438
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6020-b -\u003e entity-70 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4722.461075082086
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6002-b -\u003e entity-6013-b",
+		"value": 4722.072073983026
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6008 -\u003e entity-7023-b",
+		"value": 4721.571127348521
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6005-b -\u003e entity-6146-b",
+		"value": 4721.412124874816
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14282-b -\u003e entity-6013-b",
+		"value": 4720.972686820153
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6002-b -\u003e entity-6146-b",
+		"value": 4720.880318150586
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6005-b -\u003e entity-6080-b",
+		"value": 4720.551988936672
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14281 -\u003e entity-7023-b",
+		"value": 4720.538129909275
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6002-b -\u003e entity-6080-b",
+		"value": 4720.020279095761
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14282-b -\u003e entity-6146-b",
+		"value": 4719.781208450879
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14282-b -\u003e entity-6080-b",
+		"value": 4718.921369629316
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11730-b -\u003e entity-6020",
+		"value": 4718.814031548694
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-6965 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4718.746531863153
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6014-b -\u003e entity-6020",
+		"value": 4718.679238573511
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11724 -\u003e entity-7023-b",
+		"value": 4717.991813201469
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-7-b -\u003e entity-6013-b",
+		"value": 4717.632416955632
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-6965 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4717.01949481101
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-7-b -\u003e entity-6146-b",
+		"value": 4716.441781603158
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-7-b -\u003e entity-6080-b",
+		"value": 4715.582551150654
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6146 -\u003e entity-6007 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4713.212315539468
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11736-b -\u003e entity-38",
+		"value": 4711.940564739386
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6146 -\u003e entity-6043 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4711.241183572006
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6146 -\u003e entity-14283 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4710.3782238829
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-26-b -\u003e entity-6020",
+		"value": 4703.6039307260635
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-419-b -\u003e entity-333-b",
+		"value": 4701.2923005914445
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14284-b -\u003e entity-6020",
+		"value": 4700.8514572512195
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6146 -\u003e entity-14 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4700.465976524989
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-6021 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4698.452136139116
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-8 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4697.228080587492
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-6008 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4695.71584821374
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-14281 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4694.688507458767
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6146 -\u003e entity-6965 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4692.581448655138
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-11724 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4692.156134357329
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6061-b -\u003e entity-6013-b",
+		"value": 4687.39240598781
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-453-b -\u003e entity-254",
+		"value": 4686.821813753462
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6061-b -\u003e entity-6146-b",
+		"value": 4686.209402604709
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6061-b -\u003e entity-6080-b",
+		"value": 4685.355679817068
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6184-b -\u003e entity-49",
+		"value": 4683.269181159692
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6038 -\u003e entity-7023-b",
+		"value": 4681.523907579574
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11902-b -\u003e entity-49",
+		"value": 4679.081982665456
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6861-b -\u003e entity-38",
+		"value": 4668.386448669991
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-18 -\u003e entity-6038 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 4655.887926644009
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6615-b -\u003e entity-333-b",
+		"value": 4644.316223646587
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6896-b -\u003e entity-38",
+		"value": 4632.078220877247
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-11997-b -\u003e entity-333-b",
+		"value": 4575.01010620509
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6280 -\u003e entity-6-b",
+		"value": 4554.618811845207
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-1802-b -\u003e entity-49",
+		"value": 4386.82602680789
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-2899 -\u003e entity-7297-b",
+		"value": 4327.775736147287
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-12200-b -\u003e entity-254",
+		"value": 4287.176994455284
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-2899 -\u003e entity-6-b",
+		"value": 4093.942393154484
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-6021 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3986.268461438116
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-8 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3985.229946220953
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-6008 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3983.9469355520814
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-14281 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3983.0753174250813
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-11724 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3980.9267972881603
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-14301-b -\u003e entity-49",
+		"value": 3972.6087612405986
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6524 -\u003e entity-6038 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 3950.1560650615893
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6536-b -\u003e entity-6020",
+		"value": 3228.179617370877
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-7290 -\u003e entity-68-b",
+		"value": 3029.209919971968
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-3385-b -\u003e entity-11743 -\u003e entity-18-b",
+		"value": 2421.3624985668116
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-3385-b -\u003e entity-6049 -\u003e entity-18-b",
+		"value": 2419.3879855415703
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-3385-b -\u003e entity-47 -\u003e entity-18-b",
+		"value": 2416.8185825028527
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-3385-b -\u003e entity-6751 -\u003e entity-18-b",
+		"value": 2327.7217545421704
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-3385-b -\u003e entity-6545-b -\u003e entity-6020",
+		"value": 1985.420890358572
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-294-b -\u003e entity-348 -\u003e entity-6524-b",
+		"value": 1466.3220643704294
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-6007 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1465.1074152331253
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-6007 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1464.5711934262551
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-6043 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1464.4946866165058
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6020-b -\u003e entity-6044 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1464.3150832123888
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-14283 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1464.2264346144932
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-6043 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1463.95868906517
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6080 -\u003e entity-14283 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1463.6905352420154
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1461.3798011995689
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-6013 -\u003e entity-14 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 1461.1452012361835
+	}
+]

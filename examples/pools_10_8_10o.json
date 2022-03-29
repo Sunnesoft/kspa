@@ -1,0 +1,62 @@
+[
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-1992-b -\u003e entity-6958 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 81415179.59699689
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-3216-b -\u003e entity-7255 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 65675486.40271126
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6137-b -\u003e entity-6796 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 55967685.80863216
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-609-b -\u003e entity-6796 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 55359425.013859905
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6807-b -\u003e entity-7108 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 32058787.51811535
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6737-b -\u003e entity-6980 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 31700743.44722473
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-2138-b -\u003e entity-6980 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 30620835.919024553
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-7123-b -\u003e entity-6980 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 29005096.620195866
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-1992-b -\u003e entity-6958 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6524-b",
+		"value": 25167670.382917922
+	},
+	{
+		"in": 10,
+		"out": 10,
+		"chain": "entity-7023 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-6379-b -\u003e entity-6530 -\u003e entity-1305-b -\u003e entity-291-b -\u003e entity-18-b",
+		"value": 25041605.469135646
+	}
+]
