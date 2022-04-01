@@ -148,7 +148,7 @@ Algorithm includes the next steps:
 ```
     DFS(source, target, level) returns nodes, stat:
         if inMemo(source, target, level):
-            return getMemo(source, tar*Depth-First Search with Memoization* algorithm allows to find more paths with greater cost than the Recursive and Iterative classic Depth-First Search algorithms with skipping visited vertecesget, level)
+            return getMemo(source, target, level)
 
         stat = {min, max, mean, mean2, pathsCount}
         nodes = array of TreeNode
