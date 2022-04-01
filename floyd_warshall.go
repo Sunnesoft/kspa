@@ -1,12 +1,18 @@
-package graph_shortest_paths
+package kspa
 
 import (
 	"fmt"
 	"math"
 )
 
-func (g *MultiGraph) FloydWarshall(srcId int) {
-	vertexCount := len(g.Verteces)
+type FloydWarshall struct{}
+
+func (st *FloydWarshall) TopK(g *MultiGraph, srcId int, targetId int, topK int) (res PriorityQueue) {
+	if topK != 1 {
+		panic(fmt.Errorf("FloydWarshall.TopK doesn't support several paths searching"))
+	}
+
+	vertexCount := len(g.VertexIndex)
 	edges := g.Edges
 
 	d := make([][]float64, vertexCount)
@@ -31,8 +37,8 @@ func (g *MultiGraph) FloydWarshall(srcId int) {
 	}
 
 	for _, edge := range edges {
-		d[edge.U()][edge.V()] = edge.Weight()
-		p[edge.U()][edge.V()] = edge.V()
+		d[edge.data.Id1i][edge.data.Id2i] = edge.weight
+		p[edge.data.Id1i][edge.data.Id2i] = edge.data.Id2i
 	}
 
 	for k := 0; k < vertexCount; k++ {
@@ -52,7 +58,7 @@ func (g *MultiGraph) FloydWarshall(srcId int) {
 		}
 	}
 
-	src := g.Verteces[srcId]
+	src := g.VertexIndex[srcId]
 
 	path := make([]int, 0, vertexCount)
 	path = append(path, src)
@@ -65,4 +71,18 @@ func (g *MultiGraph) FloydWarshall(srcId int) {
 	}
 
 	fmt.Println(path)
+
+	//TODO
+	//filling result from path array
+
+	res = NewPriorityQueue(0, 1)
+	return
+}
+
+func (st *FloydWarshall) TopKOneToOne(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
+	panic(fmt.Errorf("FloydWarshall.TopKOneToOne is not provided"))
+}
+
+func (st *FloydWarshall) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
+	panic(fmt.Errorf("FloydWarshall.TopKOneToMany is not provided"))
 }

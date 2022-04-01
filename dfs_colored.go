@@ -1,4 +1,6 @@
-package graph_shortest_paths
+package kspa
+
+import "fmt"
 
 type DfsColored struct {
 	Dfs
@@ -6,12 +8,12 @@ type DfsColored struct {
 }
 
 func (st *DfsColored) TopK(g *MultiGraph, srcId int, targetId int, topK int) (res PriorityQueue) {
-	st.visited = make([]bool, len(g.Verteces))
+	st.visited = make([]bool, len(g.VertexIndex))
 	st.g = g
 	st.SetTopKValue(topK)
 
-	src := g.Verteces[srcId]
-	target := g.Verteces[targetId]
+	src := g.VertexIndex[srcId]
+	target := g.VertexIndex[targetId]
 	st.processOptEdges(src, target, 0)
 	st.initResIfNot()
 	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false)
@@ -19,25 +21,11 @@ func (st *DfsColored) TopK(g *MultiGraph, srcId int, targetId int, topK int) (re
 }
 
 func (st *DfsColored) TopKOneToOne(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
-	st.visited = make([]bool, len(g.Verteces))
-	st.g = g
-	st.SetTopKValue(topK)
-	res = make([]PriorityQueue, 0)
-
-	//TODO
-
-	return
+	panic(fmt.Errorf("DfsColored.TopKOneToOne is not implemented"))
 }
 
 func (st *DfsColored) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, topK int) (res []PriorityQueue) {
-	st.visited = make([]bool, len(g.Verteces))
-	st.g = g
-	st.SetTopKValue(topK)
-	res = make([]PriorityQueue, 0)
-
-	//TODO
-
-	return
+	panic(fmt.Errorf("DfsColored.TopKOneToMany is not implemented"))
 }
 
 func (st *DfsColored) processOptEdges(src int, target int, level int) {

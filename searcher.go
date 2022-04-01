@@ -1,4 +1,4 @@
-package graph_shortest_paths
+package kspa
 
 type Searcher interface {
 	TopK(g *MultiGraph, srcId int, targetId int, topK int) (res PriorityQueue)

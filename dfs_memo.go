@@ -1,4 +1,4 @@
-package graph_shortest_paths
+package kspa
 
 import "math"
 
@@ -53,8 +53,8 @@ func (st *DfsMemo) TopK(g *MultiGraph, srcId int, targetId int, topK int) (res P
 	st.g = g
 	st.SetTopKValue(topK)
 
-	src := g.Verteces[srcId]
-	target := g.Verteces[targetId]
+	src := g.VertexIndex[srcId]
+	target := g.VertexIndex[targetId]
 	st.processOptEdges(src, target, 0)
 	st.traceMemo(src, target)
 	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false)
@@ -68,8 +68,8 @@ func (st *DfsMemo) TopKOneToOne(g *MultiGraph, srcIds []int, targetIds []int, to
 	res = make([]PriorityQueue, 0)
 
 	for i := 0; i < n; i++ {
-		src := g.Verteces[srcIds[i]]
-		target := g.Verteces[targetIds[i]]
+		src := g.VertexIndex[srcIds[i]]
+		target := g.VertexIndex[targetIds[i]]
 
 		st.SetTopKValue(topK)
 		st.processOptEdges(src, target, 0)
@@ -91,10 +91,10 @@ func (st *DfsMemo) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, t
 	for i := 0; i < n; i++ {
 		st.SetTopKValue(topK)
 
-		src := g.Verteces[srcIds[i]]
+		src := g.VertexIndex[srcIds[i]]
 
 		for j := 0; j < m; j++ {
-			target := g.Verteces[targetIds[j]]
+			target := g.VertexIndex[targetIds[j]]
 			st.processOptEdges(src, target, 0)
 			st.traceMemo(src, target)
 		}

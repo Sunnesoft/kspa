@@ -1,7 +1,6 @@
-package graph_shortest_paths
+package kspa
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -12,7 +11,7 @@ import (
 	"time"
 )
 
-func TestDfsMemoOp(t *testing.T) {
+func TestDfsOp(t *testing.T) {
 	type fields struct {
 		deepLimit int
 	}
@@ -28,6 +27,7 @@ func TestDfsMemoOp(t *testing.T) {
 		args      args
 		wantResFn string
 		function  string
+		searcher  string
 	}
 
 	teardownTestCase := setupTestCase(t)
@@ -36,14 +36,14 @@ func TestDfsMemoOp(t *testing.T) {
 	basePath := "./examples"
 
 	smallGraph := new(MultiGraph)
-	smallGraph.BuildGraph(FromJsonFile(path.Join(basePath, "small.json")))
+	smallGraph.Build(FromJsonFile(path.Join(basePath, "small.json")))
 
 	largeGraph := new(MultiGraph)
-	largeGraph.BuildGraph(FromJsonFile(path.Join(basePath, "pools.json")))
+	largeGraph.Build(FromJsonFile(path.Join(basePath, "pools.json")))
 
 	tests := []testCase{
 		{
-			name: "small-1",
+			name: "small-1m",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -54,10 +54,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         smallGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "small_5_5_1o.json"),
 		},
 		{
-			name: "small-2",
+			name: "small-2m",
 			fields: fields{
 				deepLimit: 4,
 			},
@@ -68,10 +69,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         smallGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "small_3_4_1o.json"),
 		},
 		{
-			name: "large-1",
+			name: "large-1m",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -82,10 +84,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_100_5_10o.json"),
 		},
 		{
-			name: "large-2",
+			name: "large-2m",
 			fields: fields{
 				deepLimit: 6,
 			},
@@ -96,10 +99,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_100_6_10o.json"),
 		},
 		{
-			name: "large-3",
+			name: "large-3m",
 			fields: fields{
 				deepLimit: 7,
 			},
@@ -110,10 +114,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_100_7_10o.json"),
 		},
 		{
-			name: "large-4",
+			name: "large-4m",
 			fields: fields{
 				deepLimit: 8,
 			},
@@ -124,10 +129,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopK",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_10_8_10o.json"),
 		},
 		{
-			name: "large-5",
+			name: "large-5m",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -138,10 +144,11 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopKOneToOne",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_10_5_10m.json"),
 		},
 		{
-			name: "large-6",
+			name: "large-6m",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -152,36 +159,141 @@ func TestDfsMemoOp(t *testing.T) {
 				g:         largeGraph,
 			},
 			function:  "TopKOneToMany",
+			searcher:  "memo",
 			wantResFn: path.Join(basePath, "pools_50_5_5v.json"),
+		},
+		{
+			name: "small-1s",
+			fields: fields{
+				deepLimit: 5,
+			},
+			args: args{
+				topK:      5,
+				srcIds:    []int{1},
+				targetIds: []int{1},
+				g:         smallGraph,
+			},
+			function:  "TopK",
+			searcher:  "stacked",
+			wantResFn: path.Join(basePath, "small_5_5_1o.json"),
+		},
+		{
+			name: "small-2s",
+			fields: fields{
+				deepLimit: 4,
+			},
+			args: args{
+				topK:      3,
+				srcIds:    []int{1},
+				targetIds: []int{1},
+				g:         smallGraph,
+			},
+			function:  "TopK",
+			searcher:  "stacked",
+			wantResFn: path.Join(basePath, "small_3_4_1o.json"),
+		},
+		{
+			name: "large-1s",
+			fields: fields{
+				deepLimit: 5,
+			},
+			args: args{
+				topK:      100,
+				srcIds:    []int{10},
+				targetIds: []int{10},
+				g:         largeGraph,
+			},
+			function:  "TopK",
+			searcher:  "stacked",
+			wantResFn: path.Join(basePath, "pools_100_5_10o_col.json"),
+		},
+		{
+			name: "large-2s",
+			fields: fields{
+				deepLimit: 6,
+			},
+			args: args{
+				topK:      100,
+				srcIds:    []int{10},
+				targetIds: []int{10},
+				g:         largeGraph,
+			},
+			function:  "TopK",
+			searcher:  "stacked",
+			wantResFn: path.Join(basePath, "pools_100_6_10o_col.json"),
+		}, {
+			name: "small-1c",
+			fields: fields{
+				deepLimit: 5,
+			},
+			args: args{
+				topK:      5,
+				srcIds:    []int{1},
+				targetIds: []int{1},
+				g:         smallGraph,
+			},
+			function:  "TopK",
+			searcher:  "colored",
+			wantResFn: path.Join(basePath, "small_5_5_1o.json"),
+		},
+		{
+			name: "small-2c",
+			fields: fields{
+				deepLimit: 4,
+			},
+			args: args{
+				topK:      3,
+				srcIds:    []int{1},
+				targetIds: []int{1},
+				g:         smallGraph,
+			},
+			function:  "TopK",
+			searcher:  "colored",
+			wantResFn: path.Join(basePath, "small_3_4_1o.json"),
+		},
+		{
+			name: "large-1c",
+			fields: fields{
+				deepLimit: 5,
+			},
+			args: args{
+				topK:      100,
+				srcIds:    []int{10},
+				targetIds: []int{10},
+				g:         largeGraph,
+			},
+			function:  "TopK",
+			searcher:  "colored",
+			wantResFn: path.Join(basePath, "pools_100_5_10o_col.json"),
+		},
+		{
+			name: "large-2c",
+			fields: fields{
+				deepLimit: 6,
+			},
+			args: args{
+				topK:      100,
+				srcIds:    []int{10},
+				targetIds: []int{10},
+				g:         largeGraph,
+			},
+			function:  "TopK",
+			searcher:  "colored",
+			wantResFn: path.Join(basePath, "pools_100_6_10o_col.json"),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			st := &DfsMemo{}
-			st.Init()
-			st.SetDeepLimit(tt.fields.deepLimit)
+			st, err := NewDfs(tt.searcher, tt.fields.deepLimit)
 
-			var pathsb []byte
+			if err != nil {
+				panic(err)
+			}
 
-			switch tt.function {
-			case "TopK":
-				paths := st.TopK(tt.args.g, tt.args.srcIds[0], tt.args.targetIds[0], tt.args.topK)
-				pathsr := PriorityQueue2SortedArray(paths, false)
-				pathsb, _ = json.MarshalIndent(pathsr, "", "\t")
-			case "TopKOneToOne":
-				paths := st.TopKOneToOne(tt.args.g, tt.args.srcIds, tt.args.targetIds, tt.args.topK)
-				pathsr := make([]PriorityQueue, len(paths))
-				for i, path := range paths {
-					pathsr[i] = PriorityQueue2SortedArray(path, false)
-				}
-				pathsb, _ = json.MarshalIndent(pathsr, "", "\t")
-			case "TopKOneToMany":
-				paths := st.TopKOneToMany(tt.args.g, tt.args.srcIds, tt.args.targetIds, tt.args.topK)
-				pathsr := make([]PriorityQueue, len(paths))
-				for i, path := range paths {
-					pathsr[i] = PriorityQueue2SortedArray(path, false)
-				}
-				pathsb, _ = json.MarshalIndent(pathsr, "", "\t")
+			pathsb, err := DfsDo(st, tt.function, tt.args.g, tt.args.srcIds, tt.args.targetIds, tt.args.topK)
+
+			if err != nil {
+				panic(err)
 			}
 
 			// WriteText(tt.wantResFn, pathsb)
@@ -192,6 +304,92 @@ func TestDfsMemoOp(t *testing.T) {
 			pathss := string(pathsb)
 			if !reflect.DeepEqual(pathss, wantRes) {
 				t.Errorf("DfsMemo.%s() = %v, want %v", tt.function, pathss, wantRes)
+			}
+		})
+	}
+}
+
+func TestDfsCrossCheck(t *testing.T) {
+	type fields struct {
+		deepLimit int
+	}
+	type args struct {
+		g        *MultiGraph
+		srcIds1  int
+		srcIds2  int
+		srcIds12 []int
+		topK     int
+	}
+	type testCase struct {
+		name     string
+		fields   fields
+		args     args
+		searcher string
+	}
+
+	teardownTestCase := setupTestCase(t)
+	defer teardownTestCase(t)
+
+	basePath := "./examples"
+
+	smallGraph := new(MultiGraph)
+	smallGraph.Build(FromJsonFile(path.Join(basePath, "small.json")))
+
+	largeGraph := new(MultiGraph)
+	largeGraph.Build(FromJsonFile(path.Join(basePath, "pools.json")))
+
+	tests := []testCase{
+		{
+			name: "large-2m",
+			fields: fields{
+				deepLimit: 6,
+			},
+			args: args{
+				topK:     100,
+				srcIds1:  10,
+				srcIds2:  9,
+				srcIds12: []int{10, 9},
+				g:        largeGraph,
+			},
+			searcher: "memo",
+		},
+		{
+			name: "small-2m",
+			fields: fields{
+				deepLimit: 6,
+			},
+			args: args{
+				topK:     100,
+				srcIds1:  1,
+				srcIds2:  2,
+				srcIds12: []int{1, 2},
+				g:        smallGraph,
+			},
+			searcher: "memo",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			st, err := NewDfs(tt.searcher, tt.fields.deepLimit)
+
+			if err != nil {
+				panic(err)
+			}
+
+			paths1 := st.TopK(tt.args.g, tt.args.srcIds1, tt.args.srcIds1, tt.args.topK)
+			paths2 := st.TopK(tt.args.g, tt.args.srcIds2, tt.args.srcIds2, tt.args.topK)
+			paths12 := st.TopKOneToOne(tt.args.g, tt.args.srcIds12, tt.args.srcIds12, tt.args.topK)
+
+			if len(paths12) != 2 {
+				t.Errorf("DfsMemo.TopKOneToOne() result size %d, want 2", len(paths12))
+			}
+
+			if !reflect.DeepEqual(paths1, paths12[0]) {
+				t.Errorf("Results DfsMemo.TopK() differ from DfsMemo.TopKOneToOne() for ids: %d, %d", tt.args.srcIds1, tt.args.srcIds12[0])
+			}
+
+			if !reflect.DeepEqual(paths2, paths12[1]) {
+				t.Errorf("Results DfsMemo.TopK() differ from DfsMemo.TopKOneToOne() for ids: %d, %d", tt.args.srcIds2, tt.args.srcIds12[1])
 			}
 		})
 	}
@@ -222,7 +420,7 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 		removeOld bool
 		c         RandomEntitySeqInfo
 	}{
-		path:      "./benchmark/v5000_e20000",
+		path:      "./benchmark/v5000_e40000",
 		count:     5,
 		removeOld: true,
 		c: RandomEntitySeqInfo{
@@ -249,12 +447,12 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 
 		entities := FromJsonFile(path.Join(sourceConfig.path, fn.Name()))
 		graph := new(MultiGraph)
-		graph.BuildGraph(entities)
+		graph.Build(entities)
 
 		bchmConfig = append(bchmConfig, testCase{
 			name: fn.Name(),
 			fields: fields{
-				deepLimit: 5,
+				deepLimit: 6,
 			},
 			args: args{
 				topK: 100,
@@ -273,7 +471,7 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 		for j := 0; j < bb.oneCount; j++ {
 			v := 0
 
-			for vert := range bb.args.g.Verteces {
+			for vert := range bb.args.g.VertexIndex {
 				if rand.Intn(2) > 0 {
 					v = vert
 					break
@@ -295,7 +493,7 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 		for j := 1; j <= bb.oneToOneMax; j++ {
 			ids := make([]int, 0, j)
 
-			for vert := range bb.args.g.Verteces {
+			for vert := range bb.args.g.VertexIndex {
 				if len(ids) == j {
 					break
 				}
@@ -320,7 +518,7 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 		for j := 1; j <= bb.oneToManyMax; j++ {
 			ids := make([]int, 0, j)
 
-			for vert := range bb.args.g.Verteces {
+			for vert := range bb.args.g.VertexIndex {
 				if len(ids) == j {
 					break
 				}

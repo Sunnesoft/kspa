@@ -1,10 +1,25 @@
-package graph_shortest_paths
+package kspa
 
 import (
 	"fmt"
 	"io/ioutil"
+	"math"
+	"math/rand"
 	"os"
+	"testing"
+	"time"
 )
+
+func Weight(a *Entity) float64 {
+	return -math.Log(a.Relation)
+}
+
+func IdsHash(id1, id2 int) (uint64, error) {
+	if id1 > 1<<32 || id2 > 1<<32 {
+		return 0, fmt.Errorf("IdsHash: ids must be non-negative number less than 2**32+1")
+	}
+	return uint64(id1)<<32 + uint64(id2), nil
+}
 
 func LoadText(fn string) ([]byte, error) {
 	file, err := os.Open(fn)
@@ -171,4 +186,76 @@ func printCycle(vert int, path []int) {
 	}
 
 	fmt.Println(vert)
+}
+
+func setupTestCase(t *testing.T) func(t *testing.T) {
+	rand.Seed(time.Now().UnixNano())
+
+	return func(t *testing.T) {
+	}
+}
+
+func tracePath(v int, deepLimit int, p []int, rev bool) []int {
+	path := make([]int, 0, deepLimit)
+	path = append(path, v)
+
+	prior := v
+	for {
+		prior = p[prior]
+		for i := 0; i < len(path); i++ {
+			if prior == path[i] {
+				path = path[i:]
+				path = append(path, prior)
+
+				if rev {
+					path = reverse(path)
+				}
+
+				return path
+			}
+		}
+
+		if prior == -1 {
+			if rev {
+				path = reverse(path)
+			}
+
+			return path
+		}
+
+		path = append(path, prior)
+	}
+}
+
+func reverse(numbers []int) []int {
+	for i := 0; i < len(numbers)/2; i++ {
+		j := len(numbers) - i - 1
+		numbers[i], numbers[j] = numbers[j], numbers[i]
+	}
+	return numbers
+}
+
+func traceNegativeCycle(start int, predecessors []int, deepLimit int, uniquePaths bool, visited []bool) []int {
+	path := make([]int, 0, deepLimit)
+	path = append(path, start)
+
+	prior := start
+	for {
+		prior = predecessors[prior]
+		for i := 0; i < len(path); i++ {
+			if prior == path[i] {
+				path = path[i:]
+				path = append(path, prior)
+				path = reverse(path)
+				return path
+			}
+		}
+
+		if uniquePaths && visited[prior] {
+			return nil
+		}
+
+		path = append(path, prior)
+		visited[prior] = true
+	}
 }

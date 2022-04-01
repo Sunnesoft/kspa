@@ -1,4 +1,4 @@
-package graph_shortest_paths
+package kspa
 
 import (
 	"encoding/json"
@@ -76,7 +76,12 @@ func FromJsonFile(fn string) (seq EntitySeq) {
 	}
 
 	seq = make(EntitySeq, 0)
-	json.Unmarshal(byteValue, &seq)
+	err = json.Unmarshal(byteValue, &seq)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	return seq
 }
 

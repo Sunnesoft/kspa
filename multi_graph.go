@@ -1,40 +1,103 @@
-package graph_shortest_paths
+package kspa
+
+import "fmt"
 
 type MultiGraph struct {
-	Edges    MEdgeSeq
-	Verteces map[int]int
-	entities EntitySeq
+	Edges       MEdgeSeq
+	EdgeIndex   map[uint64]int
+	VertexIndex map[int]int
 
+	entities     EntitySeq
 	predecessors []MEdgeSeq
 	successors   []MEdgeSeq
 }
 
-func (g *MultiGraph) buildVerteces() {
-	g.Verteces = make(map[int]int)
+func (g *MultiGraph) Build(ent EntitySeq) {
+	g.entities = ent
+	g.buildVertexIndex()
+	g.buildEdges(0)
+	g.setAdjacent()
+	g.buildEdgeIndex()
+}
+
+func (g *MultiGraph) Pred(v int) MEdgeSeq {
+	return g.predecessors[v]
+}
+
+func (g *MultiGraph) Succ(u int) MEdgeSeq {
+	return g.successors[u]
+}
+
+func (g *MultiGraph) UpdateRelation(ent EntitySeq) error {
+	for _, entity := range ent {
+		label, err := IdsHash(entity.Id1, entity.Id2)
+
+		if err != nil {
+			return err
+		}
+
+		index, ok := g.EdgeIndex[label]
+
+		if !ok {
+			return fmt.Errorf("graph structure was changed, please use MultiGraph.Build")
+		}
+
+		g.Edges[index].UpdateRelation(entity.EntityId, entity.Relation)
+	}
+	return nil
+}
+
+func (g *MultiGraph) GetEdgeIndex(id1, id2 int) (int, bool) {
+	label, err := IdsHash(id1, id2)
+
+	if err != nil {
+		return 0, false
+	}
+
+	index, ok := g.EdgeIndex[label]
+	return index, ok
+}
+
+func (g *MultiGraph) buildVertexIndex() {
+	g.VertexIndex = make(map[int]int)
 
 	for _, v := range g.entities {
-		g.Verteces[v.Id1] = -1
-		g.Verteces[v.Id2] = -1
+		g.VertexIndex[v.Id1] = -1
+		g.VertexIndex[v.Id2] = -1
 	}
 
 	j := 0
 	for i, v := range g.entities {
-		if g.Verteces[v.Id1] == -1 {
-			g.Verteces[v.Id1] = j
+		if g.VertexIndex[v.Id1] == -1 {
+			g.VertexIndex[v.Id1] = j
 			j++
 		}
-		g.entities[i].Id1i = g.Verteces[v.Id1]
+		g.entities[i].Id1i = g.VertexIndex[v.Id1]
 
-		if g.Verteces[v.Id2] == -1 {
-			g.Verteces[v.Id2] = j
+		if g.VertexIndex[v.Id2] == -1 {
+			g.VertexIndex[v.Id2] = j
 			j++
 		}
-		g.entities[i].Id2i = g.Verteces[v.Id2]
+		g.entities[i].Id2i = g.VertexIndex[v.Id2]
+	}
+}
+
+func (g *MultiGraph) buildEdgeIndex() {
+	g.EdgeIndex = nil
+	g.EdgeIndex = make(map[uint64]int)
+	for i, edge := range g.Edges {
+		label, err := IdsHash(edge.data.Id1, edge.data.Id2)
+
+		if err != nil {
+			panic(err)
+		}
+
+		g.EdgeIndex[label] = i
 	}
 }
 
 func (g *MultiGraph) getGroupedEdgesById1(bufferSize int) (res []EntitySeq) {
-	n := len(g.Verteces)
+	n := len(g.VertexIndex)
 	res = make([]EntitySeq, n)
 
 	for i, v := range g.entities {
@@ -71,6 +134,7 @@ func (g *MultiGraph) buildEdges(bufferSize int) {
 			}
 
 			edge.Update()
+			edge.BuildIndex()
 
 			g.Edges = append(g.Edges, edge)
 		}
@@ -78,7 +142,7 @@ func (g *MultiGraph) buildEdges(bufferSize int) {
 }
 
 func (g *MultiGraph) setAdjacent() {
-	n := len(g.Verteces)
+	n := len(g.VertexIndex)
 	g.predecessors = make([]MEdgeSeq, n)
 	g.successors = make([]MEdgeSeq, n)
 
@@ -94,19 +158,4 @@ func (g *MultiGraph) setAdjacent() {
 		g.predecessors[v.data.Id2i] = append(g.predecessors[v.data.Id2i], v)
 		g.successors[v.data.Id1i] = append(g.successors[v.data.Id1i], v)
 	}
-}
-
-func (g *MultiGraph) BuildGraph(ent EntitySeq) {
-	g.entities = ent
-	g.buildVerteces()
-	g.buildEdges(0)
-	g.setAdjacent()
-}
-
-func (g *MultiGraph) Pred(v int) MEdgeSeq {
-	return g.predecessors[v]
-}
-
-func (g *MultiGraph) Succ(u int) MEdgeSeq {
-	return g.successors[u]
 }

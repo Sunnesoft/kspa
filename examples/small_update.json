@@ -1,0 +1,56 @@
+[
+    {
+     "EntityId": "entityId1",
+     "Id1": 1,
+     "Id2": 2,
+     "Relation": "0.5"
+    },
+    {
+     "EntityId": "entityId2",
+     "Id1": 2,
+     "Id2": 3,
+     "Relation": "10.5"
+    },
+    {
+     "EntityId": "entityId3",
+     "Id1": 3,
+     "Id2": 1,
+     "Relation": "0.51"
+    },
+    {
+     "EntityId": "entityId4",
+     "Id1": 2,
+     "Id2": 1,
+     "Relation": "0.49"
+    },
+    {
+     "EntityId": "entityId5",
+     "Id1": 1,
+     "Id2": 4,
+     "Relation": "2100"
+    },
+    {
+     "EntityId": "entityId6",
+     "Id1": 4,
+     "Id2": 1,
+     "Relation": "0.00050"
+    },
+    {
+     "EntityId": "entityId7",
+     "Id1": 2,
+     "Id2": 4,
+     "Relation": "1.15"
+    },
+    {
+    "EntityId": "entityId8",
+    "Id1": 4,
+    "Id2": 5,
+    "Relation": "17000"
+    },
+    {
+    "EntityId": "entityId9",
+    "Id1": 5,
+    "Id2": 1,
+    "Relation": "0.00032"
+    }
+]

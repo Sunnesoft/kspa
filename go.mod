@@ -1,4 +1,4 @@
-module github.com/Sunnesoft/graph_shortest_paths
+module github.com/Sunnesoft/kspa
 
 go 1.17
 

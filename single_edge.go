@@ -1,4 +1,4 @@
-package graph_shortest_paths
+package kspa
 
 import (
 	"encoding/json"
@@ -21,6 +21,11 @@ type EdgeSeq []*SingleEdge
 
 func (e *SingleEdge) Update() {
 	e.weight = Weight(e.data)
+}
+
+func (e *SingleEdge) UpdateRelation(relation float64) {
+	e.data.Relation = relation
+	e.Update()
 }
 
 func (e *SingleEdge) Weight() float64 {

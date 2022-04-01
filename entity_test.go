@@ -1,4 +1,4 @@
-package graph_shortest_paths
+package kspa
 
 import (
 	"io/ioutil"
