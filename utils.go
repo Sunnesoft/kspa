@@ -137,93 +137,10 @@ func firstIndexOf(vert int, path []int) int {
 	return -1
 }
 
-func printBestSeqFromMultiedge(pq PriorityQueue) {
-	for pq.Len() > 0 {
-		item := pq.PopItem()
-		seq, _ := item.value.(MEdgeSeq)
-
-		fmt.Printf("%f ", item.priority)
-
-		for i := 0; i < len(seq); i++ {
-			if seq[i] == nil {
-				break
-			}
-			fmt.Printf("%v ", seq[i].data)
-		}
-
-		fmt.Printf("\n")
-	}
-}
-
-func printResult(pq PriorityQueue) {
-	for pq.Len() > 0 {
-		item := pq.PopItem()
-		seq, _ := item.value.(EdgeSeq)
-
-		fmt.Printf("%f %f ", seq.GetRelation(), item.priority)
-
-		for i := 0; i < len(seq); i++ {
-			if seq[i] == nil {
-				break
-			}
-			fmt.Printf("%v ", seq[i].data)
-		}
-
-		fmt.Printf("\n")
-	}
-}
-
-func printCycle(vert int, path []int) {
-	print := false
-	for _, v := range path {
-		if vert == v {
-			print = true
-		}
-
-		if print {
-			fmt.Printf("%d ", v)
-		}
-	}
-
-	fmt.Println(vert)
-}
-
 func setupTestCase(t *testing.T) func(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 
 	return func(t *testing.T) {
-	}
-}
-
-func tracePath(v int, deepLimit int, p []int, rev bool) []int {
-	path := make([]int, 0, deepLimit)
-	path = append(path, v)
-
-	prior := v
-	for {
-		prior = p[prior]
-		for i := 0; i < len(path); i++ {
-			if prior == path[i] {
-				path = path[i:]
-				path = append(path, prior)
-
-				if rev {
-					path = reverse(path)
-				}
-
-				return path
-			}
-		}
-
-		if prior == -1 {
-			if rev {
-				path = reverse(path)
-			}
-
-			return path
-		}
-
-		path = append(path, prior)
 	}
 }
 

@@ -92,8 +92,8 @@ func dfs(g *MultiGraph, pred []MEdgeSeq, src int, target int, deepLimit int, top
 		Index  int
 	}
 
-	var level_m1 int = 0
-	var level int = 0
+	level_m1 := 0
+	level := 0
 	var node vm
 
 	vertexCount := len(g.VertexIndex)

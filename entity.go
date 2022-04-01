@@ -161,7 +161,11 @@ func GenerateRandomEntitiesJson(base string, count int, removeOld bool, c Random
 		os.RemoveAll(base)
 	}
 
-	os.MkdirAll(base, 0766)
+	err := os.MkdirAll(base, 0766)
+
+	if err != nil {
+		panic(err)
+	}
 
 	for i := 0; i < count; i++ {
 		seq := GenerateRandomEntities(c)

@@ -42,7 +42,11 @@ func (g *MultiGraph) UpdateRelation(ent EntitySeq) error {
 			return fmt.Errorf("graph structure was changed, please use MultiGraph.Build")
 		}
 
-		g.Edges[index].UpdateRelation(entity.EntityId, entity.Relation)
+		err = g.Edges[index].UpdateRelation(entity.EntityId, entity.Relation)
+
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -17,6 +17,11 @@ type Dfs struct {
 	maxWeight float64
 }
 
+func (st *Dfs) SetMultiGraph(g *MultiGraph) {
+	st.g = nil
+	st.g = g
+}
+
 func (st *Dfs) SetDeepLimit(v int) {
 	st.deepLimit = v
 	st.psa = nil
