@@ -297,7 +297,7 @@ Compare results from [this](./examples/pools_100_5_10o_col.json) and [that](./ex
 
 - Using Depth-First Search algorithm with Memoization appropriate for systems with the rigorous time constraints (e.g. > 5000 verteces and > 20000 edges).
 - For best performance find compromises between depth and size of top-k sequence (e.g. for depth=8 use top-10 sequence, for depth=5 use top-100 sequence, for depth=6 use top-50 or less sequence).
-- For dense graph performance of package subroutines may be worse.
+- For dense graph performance of the package subroutines may be worse.
 - Choose the *threshold* parameter or algorithm for it processing according to density of *Relation* parameter.
 - *Depth-First Search with Memoization* algorithm allows to find more paths with greater cost than the Recursive and Iterative classic Depth-First Search algorithms with skipping visited verteces.
 - Algorithms such Bellman-Ford and Floyd-Warshall not appropriate for DCG with large count of vertices and edges due to low performance (more than several seconds for full paths task). Besides Bellman-Ford and Floyd-Warshall algorithms don't correct working with nested negative cycles.
