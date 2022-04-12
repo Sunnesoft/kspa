@@ -97,6 +97,10 @@ func (dg *DexGraph) Build(edges []Dexer) {
 	dg.initSuccessors()
 }
 
+func (dg *DexGraph) Succ(source int) []Dexer {
+	return dg.successors[source]
+}
+
 func (dg *DexGraph) calcVertexCount() int {
 	verteces := make(map[int]bool)
 
@@ -114,7 +118,7 @@ func (dg *DexGraph) initSuccessors() {
 
 	for _, v := range dg.edges {
 		if dg.successors[v.TokenInId()] == nil {
-			dg.successors[v.TokenOutId()] = make([]Dexer, 0, 1)
+			dg.successors[v.TokenInId()] = make([]Dexer, 0, 1)
 		}
 
 		dg.successors[v.TokenInId()] = append(dg.successors[v.TokenInId()], v)
