@@ -4,6 +4,10 @@ import "math/big"
 
 type Dexer interface {
 	Id() int
+	GroupId() int
+	SetId(int)
+	SetGroupId(int)
+	Alias() string
 	TokenInId() int
 	TokenOutId() int
 	GetAmountOutByAmountIn(in *big.Int) *big.Int
@@ -15,6 +19,10 @@ type DexChain []Dexer
 
 func (dc DexChain) Id() int {
 	return 0
+}
+
+func (dc DexChain) Alias() string {
+	return ""
 }
 
 func (dc DexChain) TokenInId() int {
@@ -59,12 +67,17 @@ func NewDexChain(size int, capacity int) DexChain {
 
 type DexBase struct {
 	id         int
+	alias      string
 	tokenInId  int
 	tokenOutId int
 }
 
 func (dc DexBase) Id() int {
 	return dc.id
+}
+
+func (dc DexBase) Alias() string {
+	return dc.alias
 }
 
 func (dc DexBase) TokenInId() int {
@@ -84,7 +97,17 @@ func (dc DexBase) GetAmountInByAmountOut(out *big.Int) *big.Int {
 }
 
 func (dc DexBase) GetRelation(in *big.Int) *big.Int {
-	return big.NewInt(1)
+	lout := dc.GetAmountOutByAmountIn(in)
+	return lout.Div(lout, in)
+}
+
+func NewDexBase(id int, alias string, tokenInId int, tokenOutId int) *DexBase {
+	return &DexBase{
+		id:         id,
+		alias:      alias,
+		tokenInId:  tokenInId,
+		tokenOutId: tokenOutId,
+	}
 }
 
 type DexGraph struct {
