@@ -3,7 +3,6 @@ package kspa
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math"
 	"math/rand"
 	"os"
@@ -67,35 +66,6 @@ func (b *Entity) MarshalJSON() ([]byte, error) {
 }
 
 type EntitySeq []*Entity
-
-func FromJsonFile(fn string) (seq EntitySeq) {
-	byteValue, err := LoadText(fn)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	seq = make(EntitySeq, 0)
-	err = json.Unmarshal(byteValue, &seq)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	return seq
-}
-
-func ToJsonFile(fn string, seq EntitySeq) {
-	data, err := json.MarshalIndent(seq, "", "\t")
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	if err = WriteText(fn, data); err != nil {
-		log.Fatalln(err)
-	}
-}
 
 func GenerateRandomEntities(c RandomEntitySeqInfo) EntitySeq {
 	edges := make(map[string]*Entity)

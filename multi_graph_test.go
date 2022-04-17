@@ -14,12 +14,12 @@ func TestMultiGraph_BuildGraph(t *testing.T) {
 	type fields struct {
 		Edges        MEdgeSeq
 		VertexIndex  map[int]int
-		entities     EntitySeq
+		entities     EdgeSeq
 		predecessors []MEdgeSeq
 		successors   []MEdgeSeq
 	}
 	type args struct {
-		ent EntitySeq
+		ent EdgeSeq
 	}
 	type result struct {
 		vertCount     int
@@ -34,8 +34,8 @@ func TestMultiGraph_BuildGraph(t *testing.T) {
 
 	basePath := "./examples"
 
-	smallGraphEntities := FromJsonFile(path.Join(basePath, "small.json"))
-	largeGraphEntities := FromJsonFile(path.Join(basePath, "pools.json"))
+	smallGraphEntities, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "small.json"))
+	largeGraphEntities, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "pools.json"))
 
 	tests := []struct {
 		name    string
@@ -100,10 +100,10 @@ func TestMultiGraph_BuildGraph(t *testing.T) {
 
 func TestMultiGraph_UpdateRelation(t *testing.T) {
 	type fields struct {
-		entities EntitySeq
+		entities EdgeSeq
 	}
 	type args struct {
-		ent EntitySeq
+		ent EdgeSeq
 	}
 
 	teardownTestCase := setupTestCase(t)
@@ -111,13 +111,13 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 	basePath := "./examples"
 
-	smallGraphEntities := FromJsonFile(path.Join(basePath, "small.json"))
-	smallGraphUpdate := FromJsonFile(path.Join(basePath, "small_update.json"))
+	smallGraphEntities, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "small.json"))
+	smallGraphUpdate, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "small_update.json"))
 
-	largeGraphEntities := FromJsonFile(path.Join(basePath, "pools.json"))
-	largeGraphUpdate := FromJsonFile(path.Join(basePath, "pools_update.json"))
-	largeGraphUpdateFail := FromJsonFile(path.Join(basePath, "pools_update_fail.json"))
-	largeGraphUpdateInvIds := FromJsonFile(path.Join(basePath, "pools_update_invalid_ids.json"))
+	largeGraphEntities, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "pools.json"))
+	largeGraphUpdate, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "pools_update.json"))
+	largeGraphUpdateFail, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "pools_update_fail.json"))
+	largeGraphUpdateInvIds, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "pools_update_invalid_ids.json"))
 
 	tests := []struct {
 		name       string
@@ -176,7 +176,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			te := tt.fields.entities[tt.indexCheck]
 			relationBefore := 0.0
-			index, getIndexOk := g.GetEdgeIndex(te.Id1, te.Id2)
+			index, getIndexOk := g.GetEdgeIndex(te.data.Id1, te.data.Id2)
 
 			if !getIndexOk {
 				t.Errorf("MultiGraph.GetEdgeIndex() return %d, %t", index, getIndexOk)
@@ -184,7 +184,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			if getIndexOk {
 				medge := g.Edges[index]
-				relationBefore = medge.edges[medge.index[te.EntityId]].data.Relation
+				relationBefore = medge.edges[medge.index[te.data.EntityId]].data.Relation
 			}
 
 			err := g.UpdateRelation(tt.args.ent)
@@ -192,7 +192,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			if getIndexOk {
 				medge := g.Edges[index]
-				relationAfter = medge.edges[medge.index[te.EntityId]].data.Relation
+				relationAfter = medge.edges[medge.index[te.data.EntityId]].data.Relation
 			}
 
 			if (err != nil) != tt.wantErr {
@@ -210,10 +210,10 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 func BenchmarkMultiGraph_UpdateRelation(b *testing.B) {
 	type fields struct {
-		entities EntitySeq
+		entities EdgeSeq
 	}
 	type args struct {
-		ent EntitySeq
+		ent EdgeSeq
 	}
 	type testCase struct {
 		name   string
@@ -254,7 +254,7 @@ func BenchmarkMultiGraph_UpdateRelation(b *testing.B) {
 			continue
 		}
 
-		entities := FromJsonFile(path.Join(sourceConfig.path, fn.Name()))
+		entities, _ := FromJsonFile[*SingleEdge](path.Join(sourceConfig.path, fn.Name()))
 		bchmConfig = append(bchmConfig, testCase{
 			name: fn.Name(),
 			fields: fields{

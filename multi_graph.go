@@ -1,18 +1,21 @@
 package kspa
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 type MultiGraph struct {
 	Edges       MEdgeSeq
 	EdgeIndex   map[uint64]int
 	VertexIndex map[int]int
 
-	entities     EntitySeq
+	entities     EdgeSeq
 	predecessors []MEdgeSeq
 	successors   []MEdgeSeq
 }
 
-func (g *MultiGraph) Build(ent EntitySeq) {
+func (g *MultiGraph) Build(ent EdgeSeq) {
 	g.entities = ent
 	g.buildVertexIndex()
 	g.buildEdges(0)
@@ -28,9 +31,70 @@ func (g *MultiGraph) Succ(u int) MEdgeSeq {
 	return g.successors[u]
 }
 
-func (g *MultiGraph) UpdateRelation(ent EntitySeq) error {
+func (g *MultiGraph) Add(edges EdgeSeq) (MEdgeSeq, error) {
+	edges.SetVertexIndex(g.VertexIndex)
+	medges := SingleToMultiEdges(edges)
+
+	for _, medge := range medges {
+		if index, ok := g.GetEdgeIndex(medge.data.Id1, medge.data.Id2); ok {
+			g.Edges[index].MergeWithoutUniqueChecking(medge)
+			continue
+		}
+
+		g.Edges = append(g.Edges, medge)
+		label, err := IdsHash(medge.data.Id1, medge.data.Id2)
+
+		if err != nil {
+			return nil, err
+		}
+
+		g.EdgeIndex[label] = len(g.EdgeIndex)
+
+		if g.successors[medge.data.Id1i] == nil {
+			g.successors[medge.data.Id1i] = make(MEdgeSeq, 0, 1)
+		}
+
+		g.successors[medge.data.Id1i] = append(g.successors[medge.data.Id1i], medge)
+	}
+	return medges, nil
+}
+
+func (g *MultiGraph) Remove(medges MEdgeSeq) {
+	indeces := make([]int, 0, len(medges))
+
+	for _, medge := range medges {
+		if index, ok := g.GetEdgeIndex(medge.data.Id1, medge.data.Id2); ok {
+			g.Edges[index].RemoveMany(medge)
+
+			if g.Edges[index].Len() == 0 {
+				indeces = append(indeces, index)
+
+				for i, suc := range g.successors[medge.data.Id1i] {
+					if suc == medge {
+						g.successors = append(g.successors[:i], g.successors[i+1:]...)
+						break
+					}
+				}
+			}
+		}
+	}
+
+	if len(indeces) > 0 {
+		sort.Slice(indeces, func(i, j int) bool {
+			return indeces[j] < indeces[i]
+		})
+
+		for _, index := range indeces {
+			g.Edges = append(g.Edges[:index], g.Edges[index+1:]...)
+		}
+
+		g.buildEdgeIndex()
+	}
+}
+
+func (g *MultiGraph) UpdateRelation(ent EdgeSeq) error {
 	for _, entity := range ent {
-		label, err := IdsHash(entity.Id1, entity.Id2)
+		label, err := IdsHash(entity.data.Id1, entity.data.Id2)
 
 		if err != nil {
 			return err
@@ -42,7 +106,7 @@ func (g *MultiGraph) UpdateRelation(ent EntitySeq) error {
 			return fmt.Errorf("graph structure was changed, please use MultiGraph.Build")
 		}
 
-		err = g.Edges[index].UpdateRelation(entity.EntityId, entity.Relation)
+		err = g.Edges[index].UpdateRelation(entity.data.EntityId, entity.data.Relation)
 
 		if err != nil {
 			return err
@@ -63,27 +127,7 @@ func (g *MultiGraph) GetEdgeIndex(id1, id2 int) (int, bool) {
 }
 
 func (g *MultiGraph) buildVertexIndex() {
-	g.VertexIndex = make(map[int]int)
-
-	for _, v := range g.entities {
-		g.VertexIndex[v.Id1] = -1
-		g.VertexIndex[v.Id2] = -1
-	}
-
-	j := 0
-	for i, v := range g.entities {
-		if g.VertexIndex[v.Id1] == -1 {
-			g.VertexIndex[v.Id1] = j
-			j++
-		}
-		g.entities[i].Id1i = g.VertexIndex[v.Id1]
-
-		if g.VertexIndex[v.Id2] == -1 {
-			g.VertexIndex[v.Id2] = j
-			j++
-		}
-		g.entities[i].Id2i = g.VertexIndex[v.Id2]
-	}
+	g.VertexIndex = g.entities.BuildVertexIndex()
 }
 
 func (g *MultiGraph) buildEdgeIndex() {
@@ -100,49 +144,8 @@ func (g *MultiGraph) buildEdgeIndex() {
 	}
 }
 
-func (g *MultiGraph) getGroupedEdgesById1(bufferSize int) (res []EntitySeq) {
-	n := len(g.VertexIndex)
-	res = make([]EntitySeq, n)
-
-	for i, v := range g.entities {
-		lab := v.Id1i
-		if res[lab] == nil {
-			res[lab] = make(EntitySeq, 0, bufferSize)
-		}
-		res[lab] = append(res[lab], g.entities[i])
-	}
-
-	return
-}
-
 func (g *MultiGraph) buildEdges(bufferSize int) {
-	groupedEdgesById1 := g.getGroupedEdgesById1(bufferSize)
-	g.Edges = make([]*MultiEdge, 0, len(groupedEdgesById1))
-
-	for _, d := range groupedEdgesById1 {
-		groupedById2 := make(map[int][]*Entity)
-		for _, e := range d {
-			if _, ok := groupedById2[e.Id2i]; !ok {
-				groupedById2[e.Id2i] = make([]*Entity, 0)
-			}
-			groupedById2[e.Id2i] = append(groupedById2[e.Id2i], e)
-		}
-
-		for _, edges := range groupedById2 {
-			edge := &MultiEdge{edges: make(EdgeSeq, len(edges))}
-
-			for i, val := range edges {
-				singleEdge := &SingleEdge{data: val}
-				singleEdge.Update()
-				edge.edges[i] = singleEdge
-			}
-
-			edge.Update()
-			edge.BuildIndex()
-
-			g.Edges = append(g.Edges, edge)
-		}
-	}
+	g.Edges = SingleToMultiEdges(g.entities)
 }
 
 func (g *MultiGraph) setAdjacent() {

@@ -40,6 +40,21 @@ func (e *SingleEdge) V() int {
 	return e.data.Id2i
 }
 
+func (b *SingleEdge) UnmarshalJSON(data []byte) error {
+	var v Entity
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	b.data = &v
+	b.Update()
+	return nil
+}
+
+func (b *SingleEdge) MarshalJSON() ([]byte, error) {
+	return json.Marshal(b.data)
+}
+
 func (seq EdgeSeq) ReverseEdgeSeq() {
 	for i := 0; i < len(seq)/2; i++ {
 		j := len(seq) - i - 1
@@ -56,6 +71,38 @@ func (seq EdgeSeq) GetRelation() float64 {
 		rel *= seq[i].data.Relation
 	}
 	return rel
+}
+
+func (seq *EdgeSeq) BuildVertexIndex() map[int]int {
+	vertexIndex := make(map[int]int)
+
+	for _, v := range *seq {
+		vertexIndex[v.data.Id1] = -1
+		vertexIndex[v.data.Id2] = -1
+	}
+
+	j := 0
+	for i, v := range *seq {
+		if vertexIndex[v.data.Id1] == -1 {
+			vertexIndex[v.data.Id1] = j
+			j++
+		}
+		(*seq)[i].data.Id1i = vertexIndex[v.data.Id1]
+
+		if vertexIndex[v.data.Id2] == -1 {
+			vertexIndex[v.data.Id2] = j
+			j++
+		}
+		(*seq)[i].data.Id2i = vertexIndex[v.data.Id2]
+	}
+	return vertexIndex
+}
+
+func (seq *EdgeSeq) SetVertexIndex(vertexIndex map[int]int) {
+	for i, v := range *seq {
+		(*seq)[i].data.Id1i = vertexIndex[v.data.Id1]
+		(*seq)[i].data.Id2i = vertexIndex[v.data.Id2]
+	}
 }
 
 func (seq EdgeSeq) MarshalJSON() ([]byte, error) {

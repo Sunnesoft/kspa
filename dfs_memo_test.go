@@ -36,10 +36,12 @@ func TestDfsOp(t *testing.T) {
 	basePath := "./examples"
 
 	smallGraph := new(MultiGraph)
-	smallGraph.Build(FromJsonFile(path.Join(basePath, "small.json")))
+	source, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "small.json"))
+	smallGraph.Build(source)
 
 	largeGraph := new(MultiGraph)
-	largeGraph.Build(FromJsonFile(path.Join(basePath, "pools.json")))
+	source, _ = FromJsonFile[*SingleEdge](path.Join(basePath, "pools.json"))
+	largeGraph.Build(source)
 
 	tests := []testCase{
 		{
@@ -333,10 +335,12 @@ func TestDfsCrossCheck(t *testing.T) {
 	basePath := "./examples"
 
 	smallGraph := new(MultiGraph)
-	smallGraph.Build(FromJsonFile(path.Join(basePath, "small.json")))
+	source, _ := FromJsonFile[*SingleEdge](path.Join(basePath, "small.json"))
+	smallGraph.Build(source)
 
 	largeGraph := new(MultiGraph)
-	largeGraph.Build(FromJsonFile(path.Join(basePath, "pools.json")))
+	source, _ = FromJsonFile[*SingleEdge](path.Join(basePath, "pools.json"))
+	largeGraph.Build(source)
 
 	tests := []testCase{
 		{
@@ -445,7 +449,7 @@ func BenchmarkDfsMemoOp(b *testing.B) {
 			continue
 		}
 
-		entities := FromJsonFile(path.Join(sourceConfig.path, fn.Name()))
+		entities, _ := FromJsonFile[*SingleEdge](path.Join(sourceConfig.path, fn.Name()))
 		graph := new(MultiGraph)
 		graph.Build(entities)
 
