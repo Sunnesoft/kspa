@@ -137,7 +137,10 @@ func TestLimitOrdersArbitrage(t *testing.T) {
 			st.SetDeepLimit(tt.fields.deepLimit)
 			st.SetFnMode(FN_LO_ONLY)
 			st.SetGraph(tt.args.g)
-			st.AddLimitOrders(tt.args.lo)
+			_, err := st.AddLimitOrders(tt.args.lo)
+			if err != nil {
+				panic(err)
+			}
 
 			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
 			pathsb, err := PathsToJson(paths)
@@ -224,7 +227,10 @@ func TestRandomLimitOrdersArbitrage(t *testing.T) {
 			st.SetDeepLimit(tt.fields.deepLimit)
 			st.SetFnMode(FN_LO_ONLY)
 			st.SetGraph(tt.args.g)
-			st.AddLimitOrders(tt.args.lo)
+			_, err := st.AddLimitOrders(tt.args.lo)
+			if err != nil {
+				panic(err)
+			}
 
 			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
 			pathsb, err := PathsToJson(paths)
@@ -319,7 +325,10 @@ func BenchmarkRandomLimitOrdersArbitrage(b *testing.B) {
 				st.SetDeepLimit(bb.fields.deepLimit)
 				st.SetFnMode(FN_LO_ONLY)
 				st.SetGraph(graph)
-				st.AddLimitOrders(lo)
+				_, err := st.AddLimitOrders(lo)
+				if err != nil {
+					panic(err)
+				}
 
 				paths := st.Arbitrage(bb.args.srcIds, bb.args.topK)
 				_ = paths
