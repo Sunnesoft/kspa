@@ -210,6 +210,10 @@ func GenerateRandomLimitOrdersCsv(base string, tpl string, count int, removeOld 
 		fn := fmt.Sprintf("%x.csv", h)
 
 		p := path.Join(base, fn)
-		ToCsvFile(p, seq)
+		err = ToCsvFile(p, seq)
+
+		if err != nil {
+			panic(err)
+		}
 	}
 }

@@ -238,7 +238,10 @@ func TestRandomLimitOrdersArbitrage(t *testing.T) {
 				panic(err)
 			}
 
-			WriteText(tt.wantResFn, pathsb)
+			err = WriteText(tt.wantResFn, pathsb)
+			if err != nil {
+				panic(err)
+			}
 		})
 	}
 }

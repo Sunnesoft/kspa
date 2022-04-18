@@ -150,6 +150,10 @@ func GenerateRandomEntitiesJson(base string, count int, removeOld bool, c Random
 		fn := fmt.Sprintf("%x.json", h)
 
 		p := path.Join(base, fn)
-		ToJsonFile(p, seq)
+		err = ToJsonFile(p, seq)
+
+		if err != nil {
+			panic(err)
+		}
 	}
 }
