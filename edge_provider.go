@@ -125,6 +125,16 @@ func ToCsvFile(fn string, seq []*SingleEdge) error {
 	return WriteText(fn, bb)
 }
 
+func EdgesCsvToJson(csvFp string, jsonFp string) error {
+	edges, err := FromCsvFile(csvFp)
+
+	if err != nil {
+		return err
+	}
+
+	return ToJsonFile(jsonFp, edges)
+}
+
 func PriorityQueues2BinaryFile(fp string, pqs []PriorityQueue) error {
 	file, _ := os.Create(fp)
 	defer file.Close()
