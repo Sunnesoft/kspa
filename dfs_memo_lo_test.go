@@ -411,7 +411,10 @@ func TestLimitOrdersUpdating(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
-			WriteText(tt.loFilePathOutput, pathsb)
+			err = WriteText(tt.loFilePathOutput, pathsb)
+			if err != nil {
+				panic(err)
+			}
 
 			wantChains, err := PathsToChainView(pathsb)
 			if err != nil {
@@ -431,7 +434,10 @@ func TestLimitOrdersUpdating(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
-			WriteText(tt.loUpdationFilePathOutput, pathsb)
+			err = WriteText(tt.loUpdationFilePathOutput, pathsb)
+			if err != nil {
+				panic(err)
+			}
 
 			// Remove last limit order from the Graph
 			loRemovals, medges := medges[3:], medges[0:3]
@@ -442,7 +448,10 @@ func TestLimitOrdersUpdating(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
-			WriteText(tt.loRemovalsFilePathOutput, pathsb)
+			err = WriteText(tt.loRemovalsFilePathOutput, pathsb)
+			if err != nil {
+				panic(err)
+			}
 
 			// Remove last limit order from the Graph
 			loRemovals, medges = medges[2:], medges[0:2]
@@ -453,7 +462,10 @@ func TestLimitOrdersUpdating(t *testing.T) {
 			if err != nil {
 				panic(err)
 			}
-			WriteText(tt.loRecoverFilePathOutput, pathsb)
+			err = WriteText(tt.loRecoverFilePathOutput, pathsb)
+			if err != nil {
+				panic(err)
+			}
 
 			resChains, err := PathsToChainView(pathsb)
 			if err != nil {
