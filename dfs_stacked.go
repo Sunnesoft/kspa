@@ -21,7 +21,7 @@ func (st *DfsStacked) TopK(g *MultiGraph, srcId int, targetId int, topK int) (re
 	src := g.VertexIndex[srcId]
 	predecessors := removeNotConnectedParts(g, src)
 	pq, st.cycles = dfs(g, predecessors, src, src, st.deepLimit, topK)
-	res = ProcessOutsideEdges(pq, st.deepLimit, topK, true)
+	res = ProcessOutsideEdges(pq, st.deepLimit, topK, true, false)
 	return
 }
 
@@ -58,7 +58,7 @@ func removeNotConnectedParts(g *MultiGraph, src int) (pred []MEdgeSeq) {
 		q.Remove(e)
 
 		for _, edge := range g.Succ(u) {
-			v := edge.V()
+			v := edge.Data.Id2i
 
 			if adj[v] == nil {
 				adj[v] = make([]int, vertexCount)
@@ -128,7 +128,7 @@ func dfs(g *MultiGraph, pred []MEdgeSeq, src int, target int, deepLimit int, top
 		if visited[node.Vert] {
 			indx := firstIndexOf(node.Vert, path[:level-1])
 			edge := pred[node.Parent][node.Index]
-			weight := psa[level-1] + edge.weight - psa[indx+1]
+			weight := psa[level-1] + edge.Weight - psa[indx+1]
 
 			bits := math.Float64bits(weight) >> 2
 
@@ -156,7 +156,7 @@ func dfs(g *MultiGraph, pred []MEdgeSeq, src int, target int, deepLimit int, top
 
 		if node.Parent != -1 {
 			edges[level_m1] = pred[node.Parent][node.Index]
-			psa[level] += edges[level_m1].weight
+			psa[level] += edges[level_m1].Weight
 		}
 
 		visited[node.Vert] = true
@@ -166,12 +166,12 @@ func dfs(g *MultiGraph, pred []MEdgeSeq, src int, target int, deepLimit int, top
 		}
 
 		for i, edge := range pred[node.Vert] {
-			u := edge.data.Id1i
+			u := edge.Data.Id1i
 			if target == u {
 				pathCount++
 
 				edges[level] = edge
-				weight := psa[level] + edge.weight
+				weight := psa[level] + edge.Weight
 
 				if weight >= 0 {
 					continue
@@ -184,16 +184,16 @@ func dfs(g *MultiGraph, pred []MEdgeSeq, src int, target int, deepLimit int, top
 
 					if pq.Len() == topK {
 						pq.Init()
-						maxWeight = pq[0].priority
+						maxWeight = pq[0].Priority
 					}
 					continue
 				}
 
 				if weight < maxWeight {
-					ms, _ := pq[0].value.(MEdgeSeq)
+					ms, _ := pq[0].Value.(MEdgeSeq)
 					copy(ms, edges[1:])
-					pq.Update(pq[0], pq[0].value, weight)
-					maxWeight = pq[0].priority
+					pq.Update(pq[0], pq[0].Value, weight)
+					maxWeight = pq[0].Priority
 				}
 
 				continue
@@ -221,7 +221,7 @@ func getBestCycleByVertex(cycles []map[uint64]MEdgeSeq, deepLimit int) (res []Ed
 		for key, cycle := range cyclePool {
 			weight := 0.0
 			for i := 0; i < len(cycle); i++ {
-				weight += cycle[i].weight
+				weight += cycle[i].Weight
 			}
 
 			if minWeight > weight {
@@ -235,7 +235,7 @@ func getBestCycleByVertex(cycles []map[uint64]MEdgeSeq, deepLimit int) (res []Ed
 			path := make(EdgeSeq, deepLimit)
 
 			for i := 0; i < len(cycle); i++ {
-				path[i] = &SingleEdge{data: cycle[i].data, weight: cycle[i].weight}
+				path[i] = &SingleEdge{Data: cycle[i].Data, Weight: cycle[i].Weight}
 			}
 			path[:len(cycle)].ReverseEdgeSeq()
 			res[id] = path
@@ -265,7 +265,7 @@ func getTopkCyclesByVertex(cycles []map[uint64]MEdgeSeq, deepLimit int, topK int
 			for i := 0; i < seqSize; i++ {
 				limits[i] = len(cycle[i].edges)
 				path[i] = cycle[i].edges[0]
-				weight += path[i].weight
+				weight += path[i].Weight
 			}
 
 			rem := 0
@@ -273,11 +273,11 @@ func getTopkCyclesByVertex(cycles []map[uint64]MEdgeSeq, deepLimit int, topK int
 			for {
 				for i := 1; i < seqSize && rem > 0; i++ {
 					curEdges := cycle[i].edges
-					weight -= curEdges[mask[i]].weight
+					weight -= curEdges[mask[i]].Weight
 					mask[i] += rem
 					mask[i], rem = mask[i]%limits[i], mask[i]/limits[i]
 					path[i] = curEdges[mask[i]]
-					weight += path[i].weight
+					weight += path[i].Weight
 				}
 
 				if rem > 0 {
@@ -293,24 +293,24 @@ func getTopkCyclesByVertex(cycles []map[uint64]MEdgeSeq, deepLimit int, topK int
 
 						if topCycles.Len() == topK {
 							topCycles.Init()
-							maxWeight = topCycles[0].priority
+							maxWeight = topCycles[0].Priority
 						}
 					} else {
-						ms, _ := topCycles[0].value.(EdgeSeq)
+						ms, _ := topCycles[0].Value.(EdgeSeq)
 						copy(ms, path)
 						ms[:seqSize].ReverseEdgeSeq()
 
-						topCycles.Update(topCycles[0], topCycles[0].value, weight)
-						maxWeight = topCycles[0].priority
+						topCycles.Update(topCycles[0], topCycles[0].Value, weight)
+						maxWeight = topCycles[0].Priority
 					}
 				}
 
 				curEdges := cycle[0].edges
-				weight -= curEdges[mask[0]].weight
+				weight -= curEdges[mask[0]].Weight
 				mask[0] += 1
 				mask[0], rem = mask[0]%limits[0], mask[0]/limits[0]
 				path[0] = curEdges[mask[0]]
-				weight += path[0].weight
+				weight += path[0].Weight
 			}
 		}
 

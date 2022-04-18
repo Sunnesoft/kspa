@@ -31,18 +31,20 @@ func (g *MultiGraph) Succ(u int) MEdgeSeq {
 	return g.successors[u]
 }
 
-func (g *MultiGraph) Add(edges EdgeSeq) (MEdgeSeq, error) {
+func (g *MultiGraph) Add(edges EdgeSeq, status int) (MEdgeSeq, error) {
 	edges.SetVertexIndex(g.VertexIndex)
 	medges := SingleToMultiEdges(edges)
 
 	for _, medge := range medges {
-		if index, ok := g.GetEdgeIndex(medge.data.Id1, medge.data.Id2); ok {
+		if index, ok := g.GetEdgeIndex(medge.Data.Id1, medge.Data.Id2); ok {
 			g.Edges[index].MergeWithoutUniqueChecking(medge)
+			g.Edges[index].status = status
 			continue
 		}
 
+		medge.status = status
 		g.Edges = append(g.Edges, medge)
-		label, err := IdsHash(medge.data.Id1, medge.data.Id2)
+		label, err := IdsHash(medge.Data.Id1, medge.Data.Id2)
 
 		if err != nil {
 			return nil, err
@@ -50,26 +52,27 @@ func (g *MultiGraph) Add(edges EdgeSeq) (MEdgeSeq, error) {
 
 		g.EdgeIndex[label] = len(g.EdgeIndex)
 
-		if g.successors[medge.data.Id1i] == nil {
-			g.successors[medge.data.Id1i] = make(MEdgeSeq, 0, 1)
+		if g.successors[medge.Data.Id1i] == nil {
+			g.successors[medge.Data.Id1i] = make(MEdgeSeq, 0, 1)
 		}
 
-		g.successors[medge.data.Id1i] = append(g.successors[medge.data.Id1i], medge)
+		g.successors[medge.Data.Id1i] = append(g.successors[medge.Data.Id1i], medge)
 	}
 	return medges, nil
 }
 
-func (g *MultiGraph) Remove(medges MEdgeSeq) {
+func (g *MultiGraph) Remove(medges MEdgeSeq, status int) {
 	indeces := make([]int, 0, len(medges))
 
 	for _, medge := range medges {
-		if index, ok := g.GetEdgeIndex(medge.data.Id1, medge.data.Id2); ok {
+		if index, ok := g.GetEdgeIndex(medge.Data.Id1, medge.Data.Id2); ok {
 			g.Edges[index].RemoveMany(medge)
+			g.Edges[index].status = status
 
 			if g.Edges[index].Len() == 0 {
 				indeces = append(indeces, index)
 
-				for i, suc := range g.successors[medge.data.Id1i] {
+				for i, suc := range g.successors[medge.Data.Id1i] {
 					if suc == medge {
 						g.successors = append(g.successors[:i], g.successors[i+1:]...)
 						break
@@ -94,7 +97,7 @@ func (g *MultiGraph) Remove(medges MEdgeSeq) {
 
 func (g *MultiGraph) UpdateRelation(ent EdgeSeq) error {
 	for _, entity := range ent {
-		label, err := IdsHash(entity.data.Id1, entity.data.Id2)
+		label, err := IdsHash(entity.Data.Id1, entity.Data.Id2)
 
 		if err != nil {
 			return err
@@ -106,7 +109,7 @@ func (g *MultiGraph) UpdateRelation(ent EdgeSeq) error {
 			return fmt.Errorf("graph structure was changed, please use MultiGraph.Build")
 		}
 
-		err = g.Edges[index].UpdateRelation(entity.data.EntityId, entity.data.Relation)
+		err = g.Edges[index].UpdateRelation(entity.Data.EntityId, entity.Data.Relation)
 
 		if err != nil {
 			return err
@@ -134,7 +137,7 @@ func (g *MultiGraph) buildEdgeIndex() {
 	g.EdgeIndex = nil
 	g.EdgeIndex = make(map[uint64]int)
 	for i, edge := range g.Edges {
-		label, err := IdsHash(edge.data.Id1, edge.data.Id2)
+		label, err := IdsHash(edge.Data.Id1, edge.Data.Id2)
 
 		if err != nil {
 			panic(err)
@@ -154,15 +157,15 @@ func (g *MultiGraph) setAdjacent() {
 	g.successors = make([]MEdgeSeq, n)
 
 	for _, v := range g.Edges {
-		if g.predecessors[v.data.Id2i] == nil {
-			g.predecessors[v.data.Id2i] = make(MEdgeSeq, 0, 1)
+		if g.predecessors[v.Data.Id2i] == nil {
+			g.predecessors[v.Data.Id2i] = make(MEdgeSeq, 0, 1)
 		}
 
-		if g.successors[v.data.Id1i] == nil {
-			g.successors[v.data.Id1i] = make(MEdgeSeq, 0, 1)
+		if g.successors[v.Data.Id1i] == nil {
+			g.successors[v.Data.Id1i] = make(MEdgeSeq, 0, 1)
 		}
 
-		g.predecessors[v.data.Id2i] = append(g.predecessors[v.data.Id2i], v)
-		g.successors[v.data.Id1i] = append(g.successors[v.data.Id1i], v)
+		g.predecessors[v.Data.Id2i] = append(g.predecessors[v.Data.Id2i], v)
+		g.successors[v.Data.Id1i] = append(g.successors[v.Data.Id1i], v)
 	}
 }

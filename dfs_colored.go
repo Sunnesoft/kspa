@@ -16,7 +16,7 @@ func (st *DfsColored) TopK(g *MultiGraph, srcId int, targetId int, topK int) (re
 	target := g.VertexIndex[targetId]
 	st.processOptEdges(src, target, 0)
 	st.initResIfNot()
-	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false)
+	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false, false)
 	return
 }
 
@@ -37,9 +37,9 @@ func (st *DfsColored) processOptEdges(src int, target int, level int) {
 
 	for _, edge := range st.g.Succ(src) {
 		st.edges[level] = edge
-		weight := st.psa[level] + edge.weight
+		weight := st.psa[level] + edge.Weight
 		st.psa[level+1] = weight
-		v := edge.data.Id2i
+		v := edge.Data.Id2i
 
 		if target == v {
 			if weight >= 0 {
@@ -57,16 +57,16 @@ func (st *DfsColored) processOptEdges(src int, target int, level int) {
 
 				if st.pq.Len() == st.topK {
 					st.pq.Init()
-					st.maxWeight = st.pq[0].priority
+					st.maxWeight = st.pq[0].Priority
 				}
 				continue
 			}
 
 			if weight < st.maxWeight {
-				ms, _ := st.pq[0].value.(MEdgeSeq)
+				ms, _ := st.pq[0].Value.(MEdgeSeq)
 				copy(ms, st.edges)
-				st.pq.Update(st.pq[0], st.pq[0].value, weight)
-				st.maxWeight = st.pq[0].priority
+				st.pq.Update(st.pq[0], st.pq[0].Value, weight)
+				st.maxWeight = st.pq[0].Priority
 			}
 
 			continue

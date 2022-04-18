@@ -6,32 +6,26 @@ import (
 	"sort"
 )
 
+const (
+	UNDEFINED = iota
+	LIMIT_ORDER
+)
+
 type MultiEdge struct {
 	SingleEdge
-	edges EdgeSeq
-	index map[string]int
+	edges  EdgeSeq
+	index  map[string]int
+	status int
 }
 
 func (e *MultiEdge) Update() {
-	e.weight = math.MaxFloat64
+	e.Weight = math.MaxFloat64
 	for _, n := range e.edges {
-		if e.weight > n.weight {
-			e.data = n.data
-			e.weight = n.weight
+		if e.Weight > n.Weight {
+			e.Data = n.Data
+			e.Weight = n.Weight
 		}
 	}
-}
-
-func (e *MultiEdge) Weight() float64 {
-	return e.weight
-}
-
-func (e *MultiEdge) U() int {
-	return e.data.Id1i
-}
-
-func (e *MultiEdge) V() int {
-	return e.data.Id2i
 }
 
 func (e *MultiEdge) BuildIndex() {
@@ -39,7 +33,7 @@ func (e *MultiEdge) BuildIndex() {
 	e.index = make(map[string]int)
 
 	for i, edge := range e.edges {
-		e.index[edge.data.EntityId] = i
+		e.index[edge.Data.EntityId] = i
 	}
 }
 
@@ -57,24 +51,24 @@ func (e *MultiEdge) UpdateRelation(entityId string, relation float64) error {
 	edge := e.edges[index]
 	edge.UpdateRelation(relation)
 
-	if e.weight > edge.weight {
-		e.weight = edge.weight
-		e.data = edge.data
+	if e.Weight > edge.Weight {
+		e.Weight = edge.Weight
+		e.Data = edge.Data
 	}
 	return nil
 }
 
 func (e *MultiEdge) Add(s *SingleEdge) error {
-	if _, ok := e.index[s.data.EntityId]; ok {
-		return e.UpdateRelation(s.data.EntityId, s.data.Relation)
+	if _, ok := e.index[s.Data.EntityId]; ok {
+		return e.UpdateRelation(s.Data.EntityId, s.Data.Relation)
 	}
 
 	e.edges = append(e.edges, s)
-	e.index[s.data.EntityId] = len(e.edges) - 1
+	e.index[s.Data.EntityId] = len(e.edges) - 1
 
-	if e.weight > s.weight {
-		e.weight = s.weight
-		e.data = s.data
+	if e.Weight > s.Weight {
+		e.Weight = s.Weight
+		e.Data = s.Data
 	}
 	return nil
 }
@@ -94,11 +88,11 @@ func (e *MultiEdge) AddManyWithoutUniqueChecking(s EdgeSeq) {
 
 	for i := nextIndex; i < len(e.edges); i++ {
 		si := s[i-nextIndex]
-		e.index[si.data.EntityId] = i
+		e.index[si.Data.EntityId] = i
 
-		if e.weight > si.weight {
-			e.weight = si.weight
-			e.data = si.data
+		if e.Weight > si.Weight {
+			e.Weight = si.Weight
+			e.Data = si.Data
 		}
 	}
 }
@@ -107,13 +101,13 @@ func (e *MultiEdge) MergeWithoutUniqueChecking(m *MultiEdge) {
 	nextIndex := len(e.edges)
 	e.edges = append(e.edges, m.edges...)
 
-	if e.weight > m.weight {
-		e.data = m.data
-		e.weight = m.weight
+	if e.Weight > m.Weight {
+		e.Data = m.Data
+		e.Weight = m.Weight
 	}
 
 	for i, edge := range m.edges {
-		e.index[edge.data.EntityId] = nextIndex + i
+		e.index[edge.Data.EntityId] = nextIndex + i
 	}
 }
 
@@ -127,14 +121,14 @@ func (e *MultiEdge) Remove(entityId string) error {
 	e.edges = append(e.edges[:index], e.edges[index+1:]...)
 	e.index = nil
 	e.index = make(map[string]int)
-	e.weight = math.MaxFloat64
+	e.Weight = math.MaxFloat64
 
 	for i, edge := range e.edges {
-		if e.weight > edge.weight {
-			e.data = edge.data
-			e.weight = edge.weight
+		if e.Weight > edge.Weight {
+			e.Data = edge.Data
+			e.Weight = edge.Weight
 		}
-		e.index[edge.data.EntityId] = i
+		e.index[edge.Data.EntityId] = i
 	}
 
 	return nil
@@ -154,7 +148,7 @@ func (e *MultiEdge) RemoveManyByIds(entityIds []string) error {
 	}
 
 	newEdges := make([]*SingleEdge, len(e.edges)-len(entityIds))
-	e.weight = math.MaxFloat64
+	e.Weight = math.MaxFloat64
 	e.index = nil
 	e.index = make(map[string]int)
 
@@ -166,12 +160,12 @@ func (e *MultiEdge) RemoveManyByIds(entityIds []string) error {
 
 		edge := e.edges[j]
 
-		if e.weight > edge.weight {
-			e.data = edge.data
-			e.weight = edge.weight
+		if e.Weight > edge.Weight {
+			e.Data = edge.Data
+			e.Weight = edge.Weight
 		}
 
-		e.index[edge.data.EntityId] = i
+		e.index[edge.Data.EntityId] = i
 		newEdges[i] = edge
 		i++
 	}
@@ -185,7 +179,7 @@ func (e *MultiEdge) RemoveManyByIds(entityIds []string) error {
 func (e *MultiEdge) RemoveMany(m *MultiEdge) {
 	indeces := make([]int, 0, len(m.edges))
 	for _, edge := range m.edges {
-		if index, ok := e.index[edge.data.EntityId]; ok {
+		if index, ok := e.index[edge.Data.EntityId]; ok {
 			indeces = append(indeces, index)
 		}
 	}
@@ -198,16 +192,16 @@ func (e *MultiEdge) RemoveMany(m *MultiEdge) {
 		e.edges = append(e.edges[:index], e.edges[index+1:]...)
 	}
 
-	e.weight = math.MaxFloat64
+	e.Weight = math.MaxFloat64
 	e.index = nil
 	e.index = make(map[string]int)
 
 	for i, edge := range e.edges {
-		if e.weight > edge.weight {
-			e.data = edge.data
-			e.weight = edge.weight
+		if e.Weight > edge.Weight {
+			e.Data = edge.Data
+			e.Weight = edge.Weight
 		}
-		e.index[edge.data.EntityId] = i
+		e.index[edge.Data.EntityId] = i
 	}
 }
 
@@ -226,7 +220,7 @@ func (seq MEdgeSeq) GetWeight() float64 {
 		if seq[i] == nil {
 			break
 		}
-		rel += seq[i].weight
+		rel += seq[i].Weight
 	}
 	return rel
 }
@@ -235,7 +229,7 @@ func SingleToMultiEdges(entities EdgeSeq) MEdgeSeq {
 	groupedEdgesById1 := make(map[int]EdgeSeq)
 
 	for i, v := range entities {
-		lab := v.data.Id1i
+		lab := v.Data.Id1i
 		if groupedEdgesById1[lab] == nil {
 			groupedEdgesById1[lab] = make(EdgeSeq, 0)
 		}
@@ -247,10 +241,10 @@ func SingleToMultiEdges(entities EdgeSeq) MEdgeSeq {
 	for _, d := range groupedEdgesById1 {
 		groupedById2 := make(map[int]EdgeSeq)
 		for _, e := range d {
-			if _, ok := groupedById2[e.data.Id2i]; !ok {
-				groupedById2[e.data.Id2i] = make(EdgeSeq, 0)
+			if _, ok := groupedById2[e.Data.Id2i]; !ok {
+				groupedById2[e.Data.Id2i] = make(EdgeSeq, 0)
 			}
-			groupedById2[e.data.Id2i] = append(groupedById2[e.data.Id2i], e)
+			groupedById2[e.Data.Id2i] = append(groupedById2[e.Data.Id2i], e)
 		}
 
 		for _, edges := range groupedById2 {

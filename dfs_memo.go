@@ -1,12 +1,21 @@
 package kspa
 
-import "math"
+const (
+	THR_NOT_USED = iota
+	THR_CUSTOM
+	THR_ZERO
+)
 
 const (
-	THR_ZERO = iota
-	THR_MEAN
-	THR_MEAN_STDDEV
-	THR_CUSTOM
+	LO_NOT_IN_CHAIN = iota
+	LO_PARENT
+	LO_CHILD
+	LO_CURRENT
+)
+
+const (
+	FN_ALL_PATHS = iota
+	FN_LO_ONLY
 )
 
 type TreeNode struct {
@@ -14,23 +23,22 @@ type TreeNode struct {
 	src    int
 	target int
 	level  int
+	status int
 }
 
-func NewTreeNode(base *MultiEdge, src int, target int, level int) *TreeNode {
+func NewTreeNode(base *MultiEdge, src int, target int, level int, status int) *TreeNode {
 	return &TreeNode{
 		base:   base,
 		src:    src,
 		target: target,
 		level:  level,
+		status: status,
 	}
 }
 
 type TreeItemStat struct {
-	minWeight   float64
-	maxWeight   float64
-	meanWeight  float64
-	mean2Weight float64
-	pathsCount  float64
+	minWeight float64
+	status    int
 }
 
 type TreeItem struct {
@@ -43,6 +51,27 @@ type DfsMemo struct {
 	memo          map[int]map[int]map[int]*TreeItem
 	threshold     float64
 	thresholdMode int
+	fnMode        int
+	status        []int
+}
+
+func (st *DfsMemo) SetDeepLimit(v int) {
+	st.Dfs.SetDeepLimit(v)
+	st.status = make([]int, st.deepLimit+2)
+	st.status[0] = LO_CHILD
+}
+
+func (st *DfsMemo) SetTreshold(t float64) {
+	st.threshold = t
+	st.thresholdMode = THR_CUSTOM
+}
+
+func (st *DfsMemo) SetTresholdMode(mode int) {
+	st.thresholdMode = mode
+}
+
+func (st *DfsMemo) SetFnMode(mode int) {
+	st.fnMode = mode
 }
 
 func (st *DfsMemo) Init() {
@@ -53,11 +82,16 @@ func (st *DfsMemo) TopK(g *MultiGraph, srcId int, targetId int, topK int) (res P
 	st.g = g
 	st.SetTopKValue(topK)
 
+	onlyLimitOrders := false
+	if FN_LO_ONLY == st.fnMode {
+		onlyLimitOrders = true
+	}
+
 	src := g.VertexIndex[srcId]
 	target := g.VertexIndex[targetId]
-	st.processOptEdges(src, target, 0)
+	st.fillMemo(src, target, 0)
 	st.traceMemo(src, target)
-	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false)
+	res = ProcessOutsideEdges(st.pq, st.deepLimit, topK, false, onlyLimitOrders)
 	return
 }
 
@@ -67,14 +101,19 @@ func (st *DfsMemo) TopKOneToOne(g *MultiGraph, srcIds []int, targetIds []int, to
 	n := len(srcIds)
 	res = make([]PriorityQueue, 0)
 
+	onlyLimitOrders := false
+	if FN_LO_ONLY == st.fnMode {
+		onlyLimitOrders = true
+	}
+
 	for i := 0; i < n; i++ {
 		src := g.VertexIndex[srcIds[i]]
 		target := g.VertexIndex[targetIds[i]]
 
 		st.SetTopKValue(topK)
-		st.processOptEdges(src, target, 0)
+		st.fillMemo(src, target, 0)
 		st.traceMemo(src, target)
-		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false))
+		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false, onlyLimitOrders))
 	}
 
 	return
@@ -88,6 +127,11 @@ func (st *DfsMemo) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, t
 
 	res = make([]PriorityQueue, 0)
 
+	onlyLimitOrders := false
+	if FN_LO_ONLY == st.fnMode {
+		onlyLimitOrders = true
+	}
+
 	for i := 0; i < n; i++ {
 		st.SetTopKValue(topK)
 
@@ -95,46 +139,73 @@ func (st *DfsMemo) TopKOneToMany(g *MultiGraph, srcIds []int, targetIds []int, t
 
 		for j := 0; j < m; j++ {
 			target := g.VertexIndex[targetIds[j]]
-			st.processOptEdges(src, target, 0)
+			st.fillMemo(src, target, 0)
 			st.traceMemo(src, target)
 		}
 
-		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false))
+		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false, onlyLimitOrders))
 	}
 
 	return
 }
 
-func (st *DfsMemo) SetTreshold(t float64) {
-	st.threshold = t
-	st.thresholdMode = THR_CUSTOM
+func (st *DfsMemo) SetGraph(g *MultiGraph) {
+	st.g = g
 }
 
-func (st *DfsMemo) SetTresholdMode(mode int) {
-	st.thresholdMode = mode
+func (st *DfsMemo) Arbitrage(srcIds []int, topK int) (res []PriorityQueue) {
+	n := len(srcIds)
+	res = make([]PriorityQueue, 0)
+
+	onlyLimitOrders := false
+	if FN_LO_ONLY == st.fnMode {
+		onlyLimitOrders = true
+	}
+
+	for i := 0; i < n; i++ {
+		src := st.g.VertexIndex[srcIds[i]]
+
+		st.SetTopKValue(topK)
+		st.fillMemo(src, src, 0)
+		st.traceMemo(src, src)
+		res = append(res, ProcessOutsideEdges(st.pq, st.deepLimit, topK, false, onlyLimitOrders))
+	}
+
+	return
 }
 
-func (st *DfsMemo) prepareThreshold(src int, target int, level int) {
+func (st *DfsMemo) AddLimitOrders(edges EdgeSeq) (MEdgeSeq, error) {
+	for _, edge := range edges {
+		edge.Status = LIMIT_ORDER
+	}
+	return st.g.Add(edges, LIMIT_ORDER)
+}
+
+func (st *DfsMemo) RemoveLimitOrders(medges MEdgeSeq) {
+	st.g.Remove(medges, UNDEFINED)
+}
+
+func (st *DfsMemo) prepareThreshold(src int, target int) {
+	if THR_CUSTOM != st.thresholdMode {
+		if src == target {
+			st.thresholdMode = THR_ZERO
+		} else {
+			st.thresholdMode = THR_NOT_USED
+		}
+	}
+
 	switch st.thresholdMode {
 	case THR_ZERO:
 		st.threshold = 0
-	case THR_MEAN:
-		nodes := st.memo[src][target][level]
-		st.threshold = nodes.stat.meanWeight
-	case THR_MEAN_STDDEV:
-		nodes := st.memo[src][target][level]
-		st.threshold = nodes.stat.meanWeight - math.Sqrt((nodes.stat.mean2Weight-nodes.stat.meanWeight*nodes.stat.meanWeight)/nodes.stat.pathsCount)
 	}
 }
 
-func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, TreeItemStat) {
+func (st *DfsMemo) fillMemo(src int, target int, level int) (bool, TreeItemStat) {
 	if level >= st.deepLimit {
 		return false, TreeItemStat{
-			minWeight:   MIN_WEIGHT,
-			maxWeight:   MAX_WEIGHT,
-			meanWeight:  0,
-			mean2Weight: 0,
-			pathsCount:  0}
+			minWeight: MIN_WEIGHT,
+			status:    LO_NOT_IN_CHAIN,
+		}
 	}
 
 	if item := st.inMemo(src, target, level); item != nil {
@@ -143,53 +214,49 @@ func (st *DfsMemo) processOptEdges(src int, target int, level int) (bool, TreeIt
 
 	res := make([]*TreeNode, 0)
 	stat := TreeItemStat{
-		minWeight:   MAX_WEIGHT,
-		maxWeight:   MIN_WEIGHT,
-		meanWeight:  0,
-		mean2Weight: 0,
-		pathsCount:  0,
+		minWeight: MAX_WEIGHT,
+		status:    LO_NOT_IN_CHAIN,
 	}
 
 	for _, edge := range st.g.Succ(src) {
-		v := edge.data.Id2i
-		if target == v {
-			res = append(res, NewTreeNode(edge, -1, -1, -1))
+		v := edge.Data.Id2i
 
-			weight := edge.weight
-			stat.meanWeight += weight
-			stat.mean2Weight += weight * weight
-			stat.pathsCount += 1
+		localStatus := LO_NOT_IN_CHAIN
+		if LIMIT_ORDER == edge.status {
+			stat.status = LO_CURRENT
+			localStatus = LO_CURRENT
+		}
+
+		if target == v {
+			res = append(res, NewTreeNode(edge, -1, -1, -1, localStatus))
+
+			weight := edge.Weight
 
 			if weight < stat.minWeight {
 				stat.minWeight = weight
 			}
 
-			if weight > stat.maxWeight {
-				stat.maxWeight = weight
-			}
-
 			continue
 		}
 
-		ok, statw := st.processOptEdges(v, target, level+1)
+		ok, statw := st.fillMemo(v, target, level+1)
 
 		if ok {
-			res = append(res, NewTreeNode(edge, v, target, level+1))
+			if LO_CURRENT != localStatus && (LO_CURRENT == statw.status || LO_CHILD == statw.status) {
+				localStatus = LO_CHILD
 
-			minw := statw.minWeight + edge.weight
-			maxw := statw.maxWeight + edge.weight
+				if LO_NOT_IN_CHAIN == stat.status {
+					stat.status = LO_CHILD
+				}
+			}
+
+			res = append(res, NewTreeNode(edge, v, target, level+1, localStatus))
+
+			minw := statw.minWeight + edge.Weight
 
 			if minw < stat.minWeight {
 				stat.minWeight = minw
 			}
-
-			if maxw > stat.maxWeight {
-				stat.maxWeight = maxw
-			}
-
-			stat.meanWeight += statw.meanWeight + statw.pathsCount*edge.weight
-			stat.mean2Weight += statw.mean2Weight + statw.pathsCount*(edge.weight*edge.weight)
-			stat.pathsCount += statw.pathsCount
 		}
 	}
 
@@ -233,7 +300,7 @@ func (st *DfsMemo) toMemo(res *TreeItem, src int, target int, level int) {
 }
 
 func (st *DfsMemo) traceMemo(src int, target int) {
-	st.prepareThreshold(src, target, 0)
+	st.prepareThreshold(src, target)
 	st.nextMemoItem(src, target, 0)
 }
 
@@ -244,21 +311,42 @@ func (st *DfsMemo) nextMemoItem(src int, target int, level int) {
 
 	nodes := st.memo[src][target][level]
 
-	if st.psa[level]+nodes.stat.minWeight >= st.threshold {
+	if FN_LO_ONLY == st.fnMode &&
+		LO_NOT_IN_CHAIN == st.status[level] &&
+		LO_NOT_IN_CHAIN == nodes.stat.status {
 		return
 	}
 
-	if st.maxWeight != MIN_WEIGHT && st.psa[level]+nodes.stat.minWeight > st.maxWeight {
+	if THR_NOT_USED != st.thresholdMode &&
+		st.psa[level]+nodes.stat.minWeight >= st.threshold {
+		return
+	}
+
+	if MIN_WEIGHT != st.maxWeight &&
+		st.psa[level]+nodes.stat.minWeight > st.maxWeight {
 		return
 	}
 
 	for _, node := range nodes.seq {
 		st.edges[level] = node.base
-		weight := st.psa[level] + node.base.weight
+		weight := st.psa[level] + node.base.Weight
 		st.psa[level+1] = weight
 
+		if FN_LO_ONLY == st.fnMode {
+			switch st.status[level] {
+			case LO_CURRENT:
+				st.status[level+1] = st.status[level]
+			case LO_CHILD, LO_NOT_IN_CHAIN:
+				st.status[level+1] = node.status
+			}
+
+			if LO_NOT_IN_CHAIN == st.status[level+1] {
+				continue
+			}
+		}
+
 		if node.src < 0 {
-			if weight >= 0 {
+			if THR_NOT_USED != st.thresholdMode && weight >= st.threshold {
 				continue
 			}
 
@@ -273,16 +361,16 @@ func (st *DfsMemo) nextMemoItem(src int, target int, level int) {
 
 				if st.pq.Len() == st.topK {
 					st.pq.Init()
-					st.maxWeight = st.pq[0].priority
+					st.maxWeight = st.pq[0].Priority
 				}
 				continue
 			}
 
 			if weight < st.maxWeight {
-				ms, _ := st.pq[0].value.(MEdgeSeq)
+				ms, _ := st.pq[0].Value.(MEdgeSeq)
 				copy(ms, st.edges)
-				st.pq.Update(st.pq[0], st.pq[0].value, weight)
-				st.maxWeight = st.pq[0].priority
+				st.pq.Update(st.pq[0], st.pq[0].Value, weight)
+				st.maxWeight = st.pq[0].Priority
 			}
 
 			continue

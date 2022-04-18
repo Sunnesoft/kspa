@@ -176,7 +176,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			te := tt.fields.entities[tt.indexCheck]
 			relationBefore := 0.0
-			index, getIndexOk := g.GetEdgeIndex(te.data.Id1, te.data.Id2)
+			index, getIndexOk := g.GetEdgeIndex(te.Data.Id1, te.Data.Id2)
 
 			if !getIndexOk {
 				t.Errorf("MultiGraph.GetEdgeIndex() return %d, %t", index, getIndexOk)
@@ -184,7 +184,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			if getIndexOk {
 				medge := g.Edges[index]
-				relationBefore = medge.edges[medge.index[te.data.EntityId]].data.Relation
+				relationBefore = medge.edges[medge.index[te.Data.EntityId]].Data.Relation
 			}
 
 			err := g.UpdateRelation(tt.args.ent)
@@ -192,7 +192,7 @@ func TestMultiGraph_UpdateRelation(t *testing.T) {
 
 			if getIndexOk {
 				medge := g.Edges[index]
-				relationAfter = medge.edges[medge.index[te.data.EntityId]].data.Relation
+				relationAfter = medge.edges[medge.index[te.Data.EntityId]].Data.Relation
 			}
 
 			if (err != nil) != tt.wantErr {

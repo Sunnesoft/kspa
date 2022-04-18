@@ -37,8 +37,8 @@ func (st *FloydWarshall) TopK(g *MultiGraph, srcId int, targetId int, topK int) 
 	}
 
 	for _, edge := range edges {
-		d[edge.data.Id1i][edge.data.Id2i] = edge.weight
-		p[edge.data.Id1i][edge.data.Id2i] = edge.data.Id2i
+		d[edge.Data.Id1i][edge.Data.Id2i] = edge.Weight
+		p[edge.Data.Id1i][edge.Data.Id2i] = edge.Data.Id2i
 	}
 
 	for k := 0; k < vertexCount; k++ {

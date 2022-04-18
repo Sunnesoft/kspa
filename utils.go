@@ -36,7 +36,7 @@ func WriteText(fn string, data []byte) error {
 	return os.WriteFile(fn, data, 0666)
 }
 
-func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeSeq bool) (res PriorityQueue) {
+func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeSeq bool, onlyLimitOrders bool) (res PriorityQueue) {
 	mask := make([]int, deepLimit)
 	limits := make([]int, deepLimit)
 	path := make(EdgeSeq, deepLimit)
@@ -47,15 +47,16 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 		return
 	}
 
-	maxWeight := pq[0].priority
+	maxWeight := pq[0].Priority
 
 	for _, edges := range pq {
-		medges := edges.value.(MEdgeSeq)
+		medges := edges.Value.(MEdgeSeq)
 
 		for i := 0; i < deepLimit; i++ {
 			path[i] = nil
 		}
 
+		limitOrderCounter := 0
 		weight := 0.0
 		seqSize := len(medges)
 		for i := 0; i < seqSize; i++ {
@@ -65,7 +66,11 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 			}
 			limits[i] = len(medges[i].edges)
 			path[i] = medges[i].edges[0]
-			weight += path[i].weight
+			weight += path[i].Weight
+
+			if LIMIT_ORDER == path[i].Status {
+				limitOrderCounter++
+			}
 		}
 
 		rem := 0
@@ -73,18 +78,28 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 		for {
 			for i := 1; i < seqSize && rem > 0; i++ {
 				curEdges := medges[i].edges
-				weight -= curEdges[mask[i]].weight
+				weight -= curEdges[mask[i]].Weight
+
+				if LIMIT_ORDER == path[i].Status {
+					limitOrderCounter--
+				}
+
 				mask[i] += rem
 				mask[i], rem = mask[i]%limits[i], mask[i]/limits[i]
 				path[i] = curEdges[mask[i]]
-				weight += path[i].weight
+				weight += path[i].Weight
+
+				if LIMIT_ORDER == path[i].Status {
+					limitOrderCounter++
+				}
 			}
 
 			if rem > 0 {
 				break
 			}
 
-			if weight <= maxWeight {
+			if (onlyLimitOrders && limitOrderCounter == 1 && weight <= maxWeight) ||
+				(!onlyLimitOrders && weight <= maxWeight) {
 				if res.Len() < topK {
 					cpath := make(EdgeSeq, deepLimit)
 					copy(cpath, path)
@@ -97,27 +112,33 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 
 					if res.Len() == topK {
 						res.Init()
-						maxWeight = res[0].priority
+						maxWeight = res[0].Priority
 					}
 				} else {
-					ms, _ := res[0].value.(EdgeSeq)
+					ms, _ := res[0].Value.(EdgeSeq)
 					copy(ms, path)
 
 					if reverseEdgeSeq {
 						ms[:seqSize].ReverseEdgeSeq()
 					}
 
-					res.Update(res[0], res[0].value, weight)
-					maxWeight = res[0].priority
+					res.Update(res[0], res[0].Value, weight)
+					maxWeight = res[0].Priority
 				}
 			}
 
 			curEdges := medges[0].edges
-			weight -= curEdges[mask[0]].weight
+			weight -= curEdges[mask[0]].Weight
+			if LIMIT_ORDER == path[0].Status {
+				limitOrderCounter--
+			}
 			mask[0] += 1
 			mask[0], rem = mask[0]%limits[0], mask[0]/limits[0]
 			path[0] = curEdges[mask[0]]
-			weight += path[0].weight
+			if LIMIT_ORDER == path[0].Status {
+				limitOrderCounter++
+			}
+			weight += path[0].Weight
 		}
 	}
 

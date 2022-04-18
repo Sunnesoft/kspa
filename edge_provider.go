@@ -2,11 +2,16 @@ package kspa
 
 import (
 	"bufio"
+	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"os"
+	"path"
 	"strconv"
 	"strings"
+
+	"golang.org/x/crypto/sha3"
 )
 
 type EdgeConstraint interface {
@@ -59,8 +64,8 @@ func FromCsvFile(fn string) (seq []*SingleEdge, e error) {
 		line := scanner.Text()
 		tokens := strings.Split(line, ",")
 
-		if len(tokens) != 4 {
-			return nil, fmt.Errorf("incorrect tokens size %d, wants 4", len(tokens))
+		if len(tokens) < 4 {
+			return nil, fmt.Errorf("incorrect tokens size %d, wants more then 3", len(tokens))
 		}
 
 		// id, err := strconv.Atoi(tokens[0])
@@ -83,14 +88,14 @@ func FromCsvFile(fn string) (seq []*SingleEdge, e error) {
 			return nil, err
 		}
 
-		relation, err := strconv.ParseFloat(tokens[2], 64)
+		relation, err := strconv.ParseFloat(tokens[3], 64)
 
 		if err != nil {
 			return nil, err
 		}
 
 		edge := &SingleEdge{
-			data: &Entity{
+			Data: &Entity{
 				EntityId: id,
 				Id1:      tokIn,
 				Id2:      tokOut,
@@ -107,4 +112,104 @@ func FromCsvFile(fn string) (seq []*SingleEdge, e error) {
 	}
 
 	return
+}
+
+func ToCsvFile(fn string, seq []*SingleEdge) error {
+	var b strings.Builder
+	for _, p := range seq {
+		fmt.Fprintf(&b, "%s,%d,%d,%.15f,\n", p.Data.EntityId, p.Data.Id1, p.Data.Id2, p.Data.Relation)
+	}
+
+	bb := []byte(b.String())
+
+	return WriteText(fn, bb)
+}
+
+func PriorityQueues2BinaryFile(fp string, pqs []PriorityQueue) error {
+	file, _ := os.Create(fp)
+	defer file.Close()
+
+	gob.Register(EdgeSeq{})
+
+	enc := gob.NewEncoder(file)
+	err := enc.Encode(&pqs)
+	return err
+}
+
+func BinaryFile2PriorityQueues(fp string) ([]PriorityQueue, error) {
+	file, err := os.Open(fp)
+	if err != nil {
+		return nil, err
+	}
+
+	defer file.Close()
+
+	var pqs []PriorityQueue
+
+	enc := gob.NewDecoder(file)
+	err = enc.Decode(&pqs)
+	return pqs, err
+}
+
+func GenerateRandomLimitOrders(fp string, count int, percDiff float64) []*SingleEdge {
+	source, _ := FromCsvFile(fp)
+	n := len(source)
+	res := make([]*SingleEdge, count)
+
+	symbols := strings.Split("abcdefgkilepsdmdkslixua_dsa_DsaalDkFiwSkdmAkAlPDjwQmmCUIYJMheelf_sda", "")
+
+	for i := 0; i < count; i++ {
+		index := rand.Intn(n)
+
+		lo := new(SingleEdge)
+		*lo = *source[index]
+		lo.Data = new(Entity)
+		*(lo.Data) = *(source[index].Data)
+
+		lo.UpdateRelation(lo.Data.Relation * (1.0 + 0.01*(2.0*rand.Float64()*percDiff-percDiff)))
+
+		rand.Shuffle(len(symbols), func(i, j int) {
+			symbols[i], symbols[j] = symbols[j], symbols[i]
+		})
+
+		lo.Data.EntityId = strings.Join(symbols[0:6], "") + lo.Data.EntityId
+		res[i] = lo
+	}
+
+	return res
+}
+
+type RandomEdgeSeqInfo struct {
+	Count    int
+	PercDiff float64
+}
+
+func GenerateRandomLimitOrdersCsv(base string, tpl string, count int, removeOld bool, c RandomEdgeSeqInfo) {
+	symbols := strings.Split("abcdefgkilepsdmdkslixua_dsa_DsaalDkFiwSkdmAkAlPDjwQmmCUIYJMheelf_sda", "")
+
+	if removeOld {
+		os.RemoveAll(base)
+	}
+
+	err := os.MkdirAll(base, 0766)
+
+	if err != nil {
+		panic(err)
+	}
+
+	for i := 0; i < count; i++ {
+		seq := GenerateRandomLimitOrders(tpl, c.Count, c.PercDiff)
+
+		rand.Shuffle(len(symbols), func(i, j int) {
+			symbols[i], symbols[j] = symbols[j], symbols[i]
+		})
+
+		buf := []byte(strings.Join(symbols, ""))
+		h := make([]byte, 32)
+		sha3.ShakeSum256(h, buf)
+		fn := fmt.Sprintf("%x.csv", h)
+
+		p := path.Join(base, fn)
+		ToCsvFile(p, seq)
+	}
 }

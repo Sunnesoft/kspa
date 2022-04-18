@@ -35,9 +35,9 @@ func (st *BellmanFord) TopK(g *MultiGraph, srcId int, targetId int, topK int) (r
 
 	for i := 1; i < st.deepLimit+1; i++ {
 		for _, edge := range edges {
-			if d[edge.U()]+edge.Weight() < d[edge.V()] {
-				d[edge.V()] = d[edge.U()] + edge.Weight()
-				p[edge.V()] = edge.U()
+			if d[edge.Data.Id1i]+edge.Weight < d[edge.Data.Id2i] {
+				d[edge.Data.Id2i] = d[edge.Data.Id1i] + edge.Weight
+				p[edge.Data.Id2i] = edge.Data.Id1i
 			}
 		}
 	}
@@ -46,12 +46,12 @@ func (st *BellmanFord) TopK(g *MultiGraph, srcId int, targetId int, topK int) (r
 	visited := make([]bool, vertexCount)
 
 	for _, edge := range edges {
-		if visited[edge.V()] {
+		if visited[edge.Data.Id2i] {
 			continue
 		}
 
-		if d[edge.U()]+edge.Weight() < d[edge.V()] {
-			cycle := traceNegativeCycle(edge.V(), p, st.deepLimit, st.uniquePaths, visited)
+		if d[edge.Data.Id1i]+edge.Weight < d[edge.Data.Id2i] {
+			cycle := traceNegativeCycle(edge.Data.Id2i, p, st.deepLimit, st.uniquePaths, visited)
 
 			if cycle == nil {
 				continue
