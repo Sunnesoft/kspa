@@ -1,6 +1,7 @@
 package kspa
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math"
@@ -196,4 +197,22 @@ func traceNegativeCycle(start int, predecessors []int, deepLimit int, uniquePath
 		path = append(path, prior)
 		visited[prior] = true
 	}
+}
+
+func PathsToJson(paths []PriorityQueue) ([]byte, error) {
+	pathsr := make([]PriorityQueue, len(paths))
+	for i, path := range paths {
+		pathsr[i] = PriorityQueue2SortedArray(path, false)
+	}
+
+	return json.MarshalIndent(pathsr, "", "\t")
+}
+
+func PathsToChainView(pathsb []byte) ([][]ChainView, error) {
+	resPaths := make([][]ChainView, 0)
+
+	if err := json.Unmarshal(pathsb, &resPaths); err != nil {
+		return nil, err
+	}
+	return resPaths, nil
 }

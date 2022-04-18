@@ -1,7 +1,6 @@
 package kspa
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -37,7 +36,7 @@ func TestOldPathsArbitrage(t *testing.T) {
 
 	tests := []testCase{
 		{
-			name: "data-1m",
+			name: "old-fn-arb",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -58,18 +57,12 @@ func TestOldPathsArbitrage(t *testing.T) {
 			st.SetGraph(tt.args.g)
 
 			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
-			pathsr := make([]PriorityQueue, len(paths))
-			for i, path := range paths {
-				pathsr[i] = PriorityQueue2SortedArray(path, false)
-			}
-
-			pathsb, err := json.MarshalIndent(pathsr, "", "\t")
+			pathsb, err := PathsToJson(paths)
 			if err != nil {
 				panic(err)
 			}
 
-			resPaths := make([][]ChainView, 0)
-			err = json.Unmarshal(pathsb, &resPaths)
+			resPaths, err := PathsToChainView(pathsb)
 			if err != nil {
 				panic(err)
 			}
@@ -81,36 +74,13 @@ func TestOldPathsArbitrage(t *testing.T) {
 				panic(err)
 			}
 
-			wantPaths := make([][]ChainView, 0)
-			err = json.Unmarshal(wantResb, &wantPaths)
+			wantPaths, err := PathsToChainView(wantResb)
 			if err != nil {
 				panic(err)
 			}
 
-			if len(resPaths) != len(wantPaths) {
+			if !IsChainViewsEquals(resPaths, wantPaths) {
 				t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-				return
-			}
-
-			for i := 0; i < len(resPaths); i++ {
-				freq := make(map[string]int)
-
-				if len(resPaths[i]) != len(wantPaths[i]) {
-					t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-					return
-				}
-
-				for j := 0; j < len(resPaths[i]); j++ {
-					freq[resPaths[i][j].Chain]++
-					freq[wantPaths[i][j].Chain]++
-				}
-
-				for _, v := range freq {
-					if v != 2 {
-						t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-						return
-					}
-				}
 			}
 		})
 	}
@@ -147,7 +117,7 @@ func TestLimitOrdersArbitrage(t *testing.T) {
 
 	tests := []testCase{
 		{
-			name: "data-1m",
+			name: "lo-arb",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -170,18 +140,12 @@ func TestLimitOrdersArbitrage(t *testing.T) {
 			st.AddLimitOrders(tt.args.lo)
 
 			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
-			pathsr := make([]PriorityQueue, len(paths))
-			for i, path := range paths {
-				pathsr[i] = PriorityQueue2SortedArray(path, false)
-			}
-
-			pathsb, err := json.MarshalIndent(pathsr, "", "\t")
+			pathsb, err := PathsToJson(paths)
 			if err != nil {
 				panic(err)
 			}
 
-			resPaths := make([][]ChainView, 0)
-			err = json.Unmarshal(pathsb, &resPaths)
+			resPaths, err := PathsToChainView(pathsb)
 			if err != nil {
 				panic(err)
 			}
@@ -193,36 +157,13 @@ func TestLimitOrdersArbitrage(t *testing.T) {
 				panic(err)
 			}
 
-			wantPaths := make([][]ChainView, 0)
-			err = json.Unmarshal(wantResb, &wantPaths)
+			wantPaths, err := PathsToChainView(wantResb)
 			if err != nil {
 				panic(err)
 			}
 
-			if len(resPaths) != len(wantPaths) {
+			if !IsChainViewsEquals(resPaths, wantPaths) {
 				t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-				return
-			}
-
-			for i := 0; i < len(resPaths); i++ {
-				freq := make(map[string]int)
-
-				if len(resPaths[i]) != len(wantPaths[i]) {
-					t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-					return
-				}
-
-				for j := 0; j < len(resPaths[i]); j++ {
-					freq[resPaths[i][j].Chain]++
-					freq[wantPaths[i][j].Chain]++
-				}
-
-				for _, v := range freq {
-					if v != 2 {
-						t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
-						return
-					}
-				}
 			}
 		})
 	}
@@ -263,7 +204,7 @@ func TestRandomLimitOrdersArbitrage(t *testing.T) {
 
 	tests := []testCase{
 		{
-			name: "data-1m",
+			name: "lo-rand-arb",
 			fields: fields{
 				deepLimit: 5,
 			},
@@ -286,12 +227,7 @@ func TestRandomLimitOrdersArbitrage(t *testing.T) {
 			st.AddLimitOrders(tt.args.lo)
 
 			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
-			pathsr := make([]PriorityQueue, len(paths))
-			for i, path := range paths {
-				pathsr[i] = PriorityQueue2SortedArray(path, false)
-			}
-
-			pathsb, err := json.MarshalIndent(pathsr, "", "\t")
+			pathsb, err := PathsToJson(paths)
 			if err != nil {
 				panic(err)
 			}
@@ -392,4 +328,133 @@ func BenchmarkRandomLimitOrdersArbitrage(b *testing.B) {
 	}
 
 	os.RemoveAll(sourceConfig.path)
+}
+
+func TestLimitOrdersUpdating(t *testing.T) {
+	type fields struct {
+		deepLimit int
+	}
+	type args struct {
+		dataPath       string
+		srcIds         []int
+		topK           int
+		loPath         string
+		loUpdationPath string
+	}
+	type testCase struct {
+		name                     string
+		fields                   fields
+		args                     args
+		loFilePathOutput         string
+		loUpdationFilePathOutput string
+		loRemovalsFilePathOutput string
+		loRecoverFilePathOutput  string
+	}
+
+	teardownTestCase := setupTestCase(t)
+	defer teardownTestCase(t)
+
+	basePath := "./examples"
+	dataPath := path.Join(basePath, "data.txt")
+
+	tests := []testCase{
+		{
+			name: "lo-add-remove",
+			fields: fields{
+				deepLimit: 5,
+			},
+			args: args{
+				topK:           100,
+				srcIds:         []int{9, 12, 15},
+				dataPath:       dataPath,
+				loPath:         path.Join(basePath, "limit_orders.txt"),
+				loUpdationPath: path.Join(basePath, "limit_orders_update.txt"),
+			},
+			loFilePathOutput:         path.Join(basePath, "lo_5_100_9_12_15_init.json"),
+			loUpdationFilePathOutput: path.Join(basePath, "lo_5_100_9_12_15_upd.json"),
+			loRemovalsFilePathOutput: path.Join(basePath, "lo_5_100_9_12_15_rem.json"),
+			loRecoverFilePathOutput:  path.Join(basePath, "lo_5_100_9_12_15_rec.json"),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			graph := new(MultiGraph)
+			source, _ := FromCsvFile(tt.args.dataPath)
+			graph.Build(source)
+
+			lo, _ := FromCsvFile(tt.args.loPath)
+			loUpdation, _ := FromCsvFile(tt.args.loUpdationPath)
+
+			st := &DfsMemo{}
+			st.Init()
+			st.SetDeepLimit(tt.fields.deepLimit)
+			st.SetFnMode(FN_LO_ONLY)
+			st.SetGraph(graph)
+
+			// Adding limit orders as virtual edges into the Graph
+			medges, err := st.AddLimitOrders(lo)
+			if err != nil {
+				panic(err)
+			}
+
+			paths := st.Arbitrage(tt.args.srcIds, tt.args.topK)
+			pathsb, err := PathsToJson(paths)
+			if err != nil {
+				panic(err)
+			}
+			WriteText(tt.loFilePathOutput, pathsb)
+
+			wantChains, err := PathsToChainView(pathsb)
+			if err != nil {
+				panic(err)
+			}
+
+			// Adding another limit orders as virtual edges into the Graph
+			medgesUpdation, err := st.AddLimitOrders(loUpdation)
+			if err != nil {
+				panic(err)
+			}
+
+			medges = append(medges, medgesUpdation...)
+
+			paths = st.Arbitrage(tt.args.srcIds, tt.args.topK)
+			pathsb, err = PathsToJson(paths)
+			if err != nil {
+				panic(err)
+			}
+			WriteText(tt.loUpdationFilePathOutput, pathsb)
+
+			// Remove last limit order from the Graph
+			loRemovals, medges := medges[3:], medges[0:3]
+			st.RemoveLimitOrders(loRemovals)
+
+			paths = st.Arbitrage(tt.args.srcIds, tt.args.topK)
+			pathsb, err = PathsToJson(paths)
+			if err != nil {
+				panic(err)
+			}
+			WriteText(tt.loRemovalsFilePathOutput, pathsb)
+
+			// Remove last limit order from the Graph
+			loRemovals, medges = medges[2:], medges[0:2]
+			st.RemoveLimitOrders(loRemovals)
+
+			paths = st.Arbitrage(tt.args.srcIds, tt.args.topK)
+			pathsb, err = PathsToJson(paths)
+			if err != nil {
+				panic(err)
+			}
+			WriteText(tt.loRecoverFilePathOutput, pathsb)
+
+			resChains, err := PathsToChainView(pathsb)
+			if err != nil {
+				panic(err)
+			}
+
+			// Result paths must be the same as paths with initial limit orders
+			if !IsChainViewsEquals(resChains, wantChains) {
+				t.Errorf("DfsMemo.Arbitrage() watch in %v, want in %v", tt.loRecoverFilePathOutput, tt.loFilePathOutput)
+			}
+		})
+	}
 }
