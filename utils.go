@@ -86,7 +86,14 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 				}
 
 				mask[i] += rem
-				mask[i], rem = mask[i]%limits[i], mask[i]/limits[i]
+				tmp := mask[i]
+				// mask[i] = tmp % limits[i]
+				// rem = tmp / limits[i]
+				rem = 0
+				if tmp >= limits[i] {
+					mask[i] -= limits[i]
+					rem = 1
+				}
 				path[i] = curEdges[mask[i]]
 				weight += path[i].Weight
 
@@ -99,7 +106,7 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 				break
 			}
 
-			if (onlyLimitOrders && limitOrderCounter == 1 && weight <= maxWeight) ||
+			if (onlyLimitOrders && limitOrderCounter >= 1 && weight <= maxWeight) ||
 				(!onlyLimitOrders && weight <= maxWeight) {
 				if res.Len() < topK {
 					cpath := make(EdgeSeq, deepLimit)
@@ -134,7 +141,15 @@ func ProcessOutsideEdges(pq PriorityQueue, deepLimit int, topK int, reverseEdgeS
 				limitOrderCounter--
 			}
 			mask[0] += 1
-			mask[0], rem = mask[0]%limits[0], mask[0]/limits[0]
+			tmp := mask[0]
+			// mask[0] = tmp % limits[0]
+			// rem = tmp / limits[0]
+			rem = 0
+			if tmp >= limits[0] {
+				mask[0] -= limits[0]
+				rem = 1
+			}
+
 			path[0] = curEdges[mask[0]]
 			if LIMIT_ORDER == path[0].Status {
 				limitOrderCounter++

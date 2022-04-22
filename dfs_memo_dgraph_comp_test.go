@@ -2,14 +2,53 @@ package kspa
 
 import (
 	"dgraph"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"math/rand"
 	"os"
 	"path"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
+
+func DgraphPathToChainView(seq *dgraph.Path) (*ChainView, bool) {
+	s := make([]string, 0, len(seq.Chain))
+	value := seq.Rate
+	var in int64 = -1
+	var out int64 = -1
+
+	if len(seq.Chain) > 0 {
+		in = int64(seq.Chain[0].Source.Id)
+	}
+
+	existTempId := false
+
+	for _, edge := range seq.Chain {
+		if edge == nil {
+			break
+		}
+
+		if edge.Id == 0 && edge.TempId != "" {
+			existTempId = true
+			s = append(s, edge.TempId)
+		} else {
+			s = append(s, fmt.Sprint(edge.Id))
+		}
+		out = int64(edge.Target.Id)
+	}
+
+	chain := strings.Join(s, " -> ")
+
+	return &ChainView{
+		In:    in,
+		Out:   out,
+		Chain: chain,
+		Value: value,
+	}, existTempId
+}
 
 func BenchmarkMemoDgraphCmp(b *testing.B) {
 	type fields struct {
@@ -20,17 +59,27 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 		srcIds []int
 		topK   int
 		lo     string
+		baselo string
 	}
 	type testCase struct {
-		name   string
-		fields fields
-		args   args
+		name     string
+		fields   fields
+		args     args
+		outputFn string
 	}
 
 	rand.Seed(time.Now().UnixNano())
 
 	basePath := "./examples"
 	dataPath := path.Join(basePath, "data.txt")
+	outPath := "./benchmark/out"
+
+	os.RemoveAll(outPath)
+	err := os.MkdirAll(outPath, 0766)
+
+	if err != nil {
+		panic(err)
+	}
 
 	sourceConfig := struct {
 		path      string
@@ -41,7 +90,7 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 	}{
 		path:      "./benchmark/lo300",
 		data:      dataPath,
-		count:     100,
+		count:     101,
 		removeOld: true,
 		c: RandomEdgeSeqInfo{
 			Count:    300,
@@ -55,8 +104,15 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 
 	bchmConfig := make([]testCase, 0)
 
+	baseLoPath := ""
+
 	for _, fn := range files {
 		if fn.IsDir() {
+			continue
+		}
+
+		if baseLoPath == "" {
+			baseLoPath = path.Join(sourceConfig.path, fn.Name())
 			continue
 		}
 
@@ -70,7 +126,9 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 				srcIds: []int{9, 12, 15},
 				g:      dataPath,
 				lo:     path.Join(sourceConfig.path, fn.Name()),
+				baselo: baseLoPath,
 			},
+			outputFn: fn.Name(),
 		})
 	}
 
@@ -78,7 +136,7 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 
 	for _, bb := range bchmConfig {
 
-		b.Run("Arbitrage-KSPA", func(b *testing.B) {
+		b.Run("ArbitrageKSPA", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
 				source, _ := FromCsvFile(bb.args.g)
@@ -93,17 +151,28 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 				st.SetDeepLimit(bb.fields.deepLimit)
 				st.SetFnMode(FN_LO_ONLY)
 				st.SetGraph(graph)
-				_, err := st.AddLimitOrders(lo)
+				medges, err := st.AddLimitOrders(lo)
+				_ = medges
 				if err != nil {
 					panic(err)
 				}
 
 				paths := st.Arbitrage(bb.args.srcIds, bb.args.topK)
-				_ = paths
+
+				b.StopTimer()
+				pathsb, err := PathsToJson(paths)
+				if err != nil {
+					panic(err)
+				}
+				err = WriteText(path.Join(outPath, fmt.Sprintf("kspa_%s", bb.outputFn)), pathsb)
+				if err != nil {
+					panic(err)
+				}
+				b.StartTimer()
 			}
 		})
 
-		b.Run("Arbitrage-Dgraph", func(b *testing.B) {
+		b.Run("ArbitrageDgraph", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
 				source, _ := FromCsvFile(bb.args.g)
@@ -127,28 +196,40 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 				for _, sedge := range lo {
 					ent := sedge.Data
 					v1 := g.Vertices[ent.Id1]
-					v2 := g.Vertices[ent.Id1]
+					v2 := g.Vertices[ent.Id2]
 					g.SetEdge(v1, v2, ent.Relation, 0, ent.EntityId)
 				}
 				g.MakeMatrix(true)
 
-				for _, src := range bb.args.srcIds {
-					pathsd, total := g.AllPathsWithTemp([]int{src}, []int{src}, bb.fields.deepLimit, bb.args.topK)
-					_ = pathsd
-					_ = total
+				cv := make([][]*ChainView, len(bb.args.srcIds))
+
+				for i, src := range bb.args.srcIds {
+					pathsd, _ := g.AllPathsWithTemp([]int{src}, []int{src}, bb.fields.deepLimit, bb.args.topK)
+
+					b.StopTimer()
+					cv[i] = make([]*ChainView, 0)
+					for _, val := range pathsd {
+						if view, hasLo := DgraphPathToChainView(val); hasLo {
+							cv[i] = append(cv[i], view)
+						}
+					}
+					b.StartTimer()
 				}
 
-				// for i, p := range pathsd {
-				// 	fmt.Printf("%d. (%d) ", i+1, p.Chain[0].Source.Id)
-				// 	for _, e := range p.Chain {
-				// 		fmt.Printf("(%d) ", e.Target.Id)
-				// 	}
-				// 	fmt.Printf("  rate: %.4f\n", p.Rate)
-				// }
+				b.StopTimer()
+				jsonText, err := json.MarshalIndent(cv, "", "\t")
+				if err != nil {
+					panic(err)
+				}
+				err = WriteText(path.Join(outPath, fmt.Sprintf("dgraph_%s", bb.outputFn)), jsonText)
+				if err != nil {
+					panic(err)
+				}
+				b.StartTimer()
 			}
 		})
 
-		b.Run("Arbitrage-KSPA-add-single-lo", func(b *testing.B) {
+		b.Run("KspaAdd300Lo1LoAtTime", func(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
 				source, _ := FromCsvFile(bb.args.g)
@@ -169,6 +250,62 @@ func BenchmarkMemoDgraphCmp(b *testing.B) {
 					if err != nil {
 						panic(err)
 					}
+
+					paths := st.Arbitrage(bb.args.srcIds, bb.args.topK)
+					_ = paths
+				}
+
+			}
+		})
+
+		b.Run("KspaAdd300LoAsBatchAdd1LoRem1LoAtTime", func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				b.StopTimer()
+				source, _ := FromCsvFile(bb.args.g)
+				lo, _ := FromCsvFile(bb.args.lo)
+				baselo, _ := FromCsvFile(bb.args.baselo)
+				b.StartTimer()
+
+				graph := new(MultiGraph)
+				graph.Build(source)
+
+				st := &DfsMemo{}
+				st.Init()
+				st.SetDeepLimit(bb.fields.deepLimit)
+				st.SetFnMode(FN_LO_ONLY)
+				st.SetGraph(graph)
+
+				medges := make(MEdgeSeq, 0)
+
+				// kedges, _ := st.AddLimitOrders(append(baselo, lo...))
+				// _ = kedges
+
+				for _, singleLo := range baselo[:150] {
+					ledges, err := st.AddLimitOrders(EdgeSeq{singleLo})
+					if err != nil {
+						panic(err)
+					}
+
+					medges = append(medges, ledges...)
+				}
+
+				ledges, err := st.AddLimitOrders(lo[:150])
+				if err != nil {
+					panic(err)
+				}
+				medges = append(medges, ledges...)
+
+				for _, singleLo := range lo[150:] {
+					ledges, err := st.AddLimitOrders(EdgeSeq{singleLo})
+					if err != nil {
+						panic(err)
+					}
+
+					medges = append(medges, ledges...)
+
+					loRemovals := medges[0]
+					medges = medges[1:]
+					st.RemoveLimitOrders(MEdgeSeq{loRemovals})
 
 					paths := st.Arbitrage(bb.args.srcIds, bb.args.topK)
 					_ = paths

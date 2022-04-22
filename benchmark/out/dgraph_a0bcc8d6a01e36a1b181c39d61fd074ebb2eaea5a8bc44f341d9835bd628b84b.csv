@@ -1,0 +1,1706 @@
+[
+	[
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "DfsuIx1068 -\u003e 1575",
+			"value": 1.4637134314991178
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3847937768179592
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3679616035315472
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2044 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3414089311893012
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "eIaPfa2695 -\u003e 3038 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.340510291630823
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "112 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3399056904444997
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1927 -\u003e kmdY_j3135 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3392271211602014
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3367051833183008
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "846 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3366969812107645
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "3 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.335273398972204
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "751 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3325478399022244
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2044 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3251041008559343
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "eIaPfa2695 -\u003e 3038 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.324216384264488
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "milD_m2048 -\u003e 3062 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3238281071925433
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "112 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3236191320077366
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e 3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3233472147337646
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2439 -\u003e M_kwje2977 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.323133639296527
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1927 -\u003e kmdY_j3135 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3229488107355045
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.320457527057049
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "846 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.320449424646159
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e _daukx3099 -\u003e 3074 -\u003e flDeds1880",
+			"value": 1.3202228707034234
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 1880",
+			"value": 1.3195917519837
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "3 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3190431460547756
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "AkIcls1886 -\u003e 3102 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.318951570397926
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "seimdJ2048 -\u003e 3062 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3185532563117364
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "mkMflf2695 -\u003e 3038 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.318360439149016
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "YdU_eQ2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3173740155015492
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "usksDd1911 -\u003e absI_D2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.317192864740268
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "751 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.316350716164993
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "34 -\u003e kmdY_j3135 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3160854655276084
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "usksDd1911 -\u003e 2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3155681580663987
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "eAjema131 -\u003e 3165 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3136412506897668
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "PixlCs2074 -\u003e 3171 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.312426930423531
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "Iiemkf3 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.310329660369686
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "milD_m2048 -\u003e 3062 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3077369718374363
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e 3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3072619246282056
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2439 -\u003e M_kwje2977 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3070509452011678
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1927 -\u003e 3135 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3060677688586322
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "888 -\u003e M_kwje2977 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3050218114918775
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2439 -\u003e ieaPsk2977 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3043875608123445
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "cQjlax2536 -\u003e _daukx3099 -\u003e 3074 -\u003e 222",
+			"value": 1.3041755570106743
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "pdmde_1 -\u003e 3143 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3032533929064551
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "AkIcls1886 -\u003e 3102 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3029197093649156
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "kud_DS2061 -\u003e 3143 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.302591049096461
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "seimdJ2048 -\u003e 3062 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3025262367878614
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1038 -\u003e CDpdaP2969 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3024027283204562
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "mkMflf2695 -\u003e 3038 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3023357633184403
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "DxCaUd935 -\u003e 3062 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.3021478222820642
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "YdU_eQ2536 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3013613296539195
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "usksDd1911 -\u003e absI_D2940 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3011823807807865
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "34 -\u003e kmdY_j3135 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.3000884420094987
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "usksDd1911 -\u003e 2940 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.299577422422321
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "eAjema131 -\u003e 3165 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2976739366117112
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2646 -\u003e 3128 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.297337952015509
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "PixlCs2074 -\u003e 3171 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2964743764126336
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1876 -\u003e 3036 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2959875597288502
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "513 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2956975506416908
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "3959 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2956108795200167
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1961 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2950717069127384
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "Iiemkf3 -\u003e _daukx3099 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2944025986837584
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "935 -\u003e 3062 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2935036856937125
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "843 -\u003e 2994 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.293243544440276
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "822 -\u003e 3102 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2929325251755008
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1953 -\u003e 3088 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2916389416640788
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "881 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2915715111628558
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "15 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2915359986486312
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1927 -\u003e 3135 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2901925104791918
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1967 -\u003e 3106 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.290078620069044
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "647 -\u003e 3102 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.289666524585389
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2439 -\u003e 2977 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2894248264624746
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2531 -\u003e 3184 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2893975276833387
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2687 -\u003e 3124 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2892695003973287
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "118 -\u003e absI_D2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.289229312468331
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "888 -\u003e M_kwje2977 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.289159266727953
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2439 -\u003e ieaPsk2977 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2885327253676877
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "662 -\u003e 3114 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2882765956655409
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "26 -\u003e 3066 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2879983644783106
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "118 -\u003e 2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2876390977593193
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2671 -\u003e 3010 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2874148920036723
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "pdmde_1 -\u003e 3143 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2874123432767313
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "kud_DS2061 -\u003e 3143 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.286758050258105
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1038 -\u003e CDpdaP2969 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2865720185218033
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "888 -\u003e ieaPsk2977 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2865323403037645
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "DxCaUd935 -\u003e 3062 -\u003e ewkMdU3074 -\u003e 222",
+			"value": 1.2863202108672152
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "134 -\u003e 3088 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.285855434730378
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "604 -\u003e 3036 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.28583185370897
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1911 -\u003e absI_D2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2857388259385483
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2046 -\u003e 3066 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2855986152007022
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1888 -\u003e 3180 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.28519338098214
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "841 -\u003e 3066 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2851739343645672
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "490 -\u003e 3088 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2851065889686952
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "168 -\u003e 2994 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2847697736616843
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1673 -\u003e 3045 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2846325510576548
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2067 -\u003e 3114 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.284419452215256
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "2695 -\u003e 3038 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2843371199650082
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1005 -\u003e 3010 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2843123057525625
+		},
+		{
+			"in": 9,
+			"out": 9,
+			"chain": "1911 -\u003e 2940 -\u003e ewkMdU3074 -\u003e flDeds1880",
+			"value": 1.2841529166102534
+		}
+	],
+	[
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e pdmde_1",
+			"value": 1.3032533929064551
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e kud_DS2061",
+			"value": 1.3025910490964607
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e pdmde_1",
+			"value": 1.2874123432767313
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e kud_DS2061",
+			"value": 1.286758050258105
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 1912",
+			"value": 1.2825832787431817
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 437",
+			"value": 1.2817661599778432
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 848",
+			"value": 1.2791566920879913
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 1",
+			"value": 1.2789388421154568
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 2061",
+			"value": 1.2787999232849951
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 2532",
+			"value": 1.2785191104943971
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 742",
+			"value": 1.2772042823139376
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e slwUJA1",
+			"value": 1.2758364996544493
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 1912",
+			"value": 1.2669934744246878
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 437",
+			"value": 1.2661862877408505
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 848",
+			"value": 1.2636085379424882
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 1",
+			"value": 1.2633933359371456
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 2061",
+			"value": 1.2632561056655625
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 2532",
+			"value": 1.2629787061554338
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e 742",
+			"value": 1.261679859716188
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e slwUJA1",
+			"value": 1.2603287024597942
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e pdmde_1",
+			"value": 1.2424845954973693
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e pdmde_1",
+			"value": 1.2418906387461366
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e kud_DS2061",
+			"value": 1.2418531358093914
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e kud_DS2061",
+			"value": 1.2412594809208506
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 3959 -\u003e msldjs2929",
+			"value": 1.2379679923149214
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 1909 -\u003e msldjs2929",
+			"value": 1.23785408864045
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 3959 -\u003e esakdl2929",
+			"value": 1.2366418379589668
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 1909 -\u003e esakdl2929",
+			"value": 1.236528056302072
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 2546 -\u003e msldjs2929",
+			"value": 1.233744629839571
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 744 -\u003e msldjs2929",
+			"value": 1.2333563017247582
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 2050 -\u003e msldjs2929",
+			"value": 1.2333153254159084
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 2546 -\u003e esakdl2929",
+			"value": 1.2324229996963407
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 744 -\u003e esakdl2929",
+			"value": 1.2320350875721064
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 2050 -\u003e esakdl2929",
+			"value": 1.2319941551585032
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 153 -\u003e msldjs2929",
+			"value": 1.2319714211611943
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 820 -\u003e msldjs2929",
+			"value": 1.231967046415479
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 153 -\u003e esakdl2929",
+			"value": 1.2306516905407527
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 820 -\u003e esakdl2929",
+			"value": 1.2306473204814172
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e SDmlUi437",
+			"value": 1.229693999178025
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e 222 -\u003e pdmde_1",
+			"value": 1.2273821908164604
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 67",
+			"value": 1.2267966813465379
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e 222 -\u003e kud_DS2061",
+			"value": 1.2267584065232375
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 2929",
+			"value": 1.2266906854196307
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 3957",
+			"value": 1.2266838519121148
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 143",
+			"value": 1.2266788808838451
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 3958",
+			"value": 1.226402664660054
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 3956",
+			"value": 1.226402664660054
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 1989 -\u003e iwhsll499",
+			"value": 1.225406553032468
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 6",
+			"value": 1.2229744479435691
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 1912",
+			"value": 1.2227782984911029
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 1912",
+			"value": 1.2221937621288157
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 437",
+			"value": 1.2219992807773175
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e aCexai2546 -\u003e msldjs2929",
+			"value": 1.2214870023029833
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 437",
+			"value": 1.2214151168162917
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e aCexai2546 -\u003e esakdl2929",
+			"value": 1.2201785029565526
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 848",
+			"value": 1.2195114885542293
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 1",
+			"value": 1.2193037966069251
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 2061",
+			"value": 1.2191713553581145
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 848",
+			"value": 1.2189285138562267
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 2532",
+			"value": 1.2189036364567591
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 1",
+			"value": 1.2187209211938834
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 2061",
+			"value": 1.218588543257225
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 2532",
+			"value": 1.2183209523360872
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e 742",
+			"value": 1.2176501167891038
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 742",
+			"value": 1.217068031900384
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e flDeds1880 -\u003e slwUJA1",
+			"value": 1.2163461118322376
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e aJsdAY2428 -\u003e 413",
+			"value": 1.2161869092457733
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 1880 -\u003e slwUJA1",
+			"value": 1.2157646503094335
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 32 -\u003e iwhsll499",
+			"value": 1.2147618533814417
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e ewkMdU3074 -\u003e 222 -\u003e SDmlUi437",
+			"value": 1.2147470642409055
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e cQjlax2536 -\u003e 760",
+			"value": 1.213399681881456
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e MAlDdd384 -\u003e 88",
+			"value": 1.2108642349871845
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 1981 -\u003e msldjs2929",
+			"value": 1.2108023848881453
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e 1981 -\u003e esakdl2929",
+			"value": 1.20950533127538
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 3959 -\u003e msldjs2929",
+			"value": 1.2089038411666373
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 1909 -\u003e msldjs2929",
+			"value": 1.2087926116433814
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 3959 -\u003e esakdl2929",
+			"value": 1.2076088213399165
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 1909 -\u003e esakdl2929",
+			"value": 1.2074977109695932
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e pdmde_1",
+			"value": 1.206619170709891
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e kud_DS2061",
+			"value": 1.2060059386683786
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 2546 -\u003e msldjs2929",
+			"value": 1.204779631856877
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 744 -\u003e msldjs2929",
+			"value": 1.2044004206393464
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 2050 -\u003e msldjs2929",
+			"value": 1.2043604063437645
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 2546 -\u003e esakdl2929",
+			"value": 1.2034890300265626
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 744 -\u003e esakdl2929",
+			"value": 1.2031102250332728
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 2050 -\u003e esakdl2929",
+			"value": 1.2030702536023954
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 153 -\u003e msldjs2929",
+			"value": 1.203048053338057
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 820 -\u003e msldjs2929",
+			"value": 1.2030437812995778
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 153 -\u003e esakdl2929",
+			"value": 1.2017593064348566
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "exaeau38 -\u003e Udpldb1841 -\u003e 820 -\u003e esakdl2929",
+			"value": 1.2017550389727334
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "3143 -\u003e 3074 -\u003e 222 -\u003e slwUJA1",
+			"value": 1.2015614205133185
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e sdlpkl2546 -\u003e msldjs2929",
+			"value": 1.2006685060604996
+		},
+		{
+			"in": 12,
+			"out": 12,
+			"chain": "38 -\u003e Udpldb1841 -\u003e AFDicD1163 -\u003e 1838",
+			"value": 1.2003614821962703
+		}
+	],
+	[
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 3959",
+			"value": 1.2798860784378139
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 1909",
+			"value": 1.2797683179398498
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 2546",
+			"value": 1.2755197112377297
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 744",
+			"value": 1.275118234179276
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 2050",
+			"value": 1.2750758703963927
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 153",
+			"value": 1.2736864610117886
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 820",
+			"value": 1.2736819381354523
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 3959",
+			"value": 1.2643290585986326
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 1909",
+			"value": 1.2642127294799406
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e aCexai2546",
+			"value": 1.2628470355820223
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 2546",
+			"value": 1.2600157646074077
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 744",
+			"value": 1.2596191675040285
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 2050",
+			"value": 1.259577318653077
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 153",
+			"value": 1.2582047975444883
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 820",
+			"value": 1.25820032964373
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 1981",
+			"value": 1.2518006327932767
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e aCexai2546",
+			"value": 1.247497125369404
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e sdlpkl2546",
+			"value": 1.2413236168182302
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.2379679923149212
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.23785408864045
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.2366418379589665
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 1981",
+			"value": 1.2365849916458753
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.2365280563020717
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e flDeds1880 -\u003e 214",
+			"value": 1.2344527083764292
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 2546",
+			"value": 1.2337446298395707
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 744",
+			"value": 1.2333563017247582
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 2050",
+			"value": 1.2333153254159084
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 2546",
+			"value": 1.2324229996963407
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 744",
+			"value": 1.2320350875721064
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 2050",
+			"value": 1.2319941551585032
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 153",
+			"value": 1.2319714211611943
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 820",
+			"value": 1.231967046415479
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 153",
+			"value": 1.2306516905407527
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 820",
+			"value": 1.2306473204814172
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e sdlpkl2546",
+			"value": 1.2262353238372987
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e aCexai2546",
+			"value": 1.2214870023029833
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 3959",
+			"value": 1.2202068646865711
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e aCexai2546",
+			"value": 1.2201785029565526
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 1909",
+			"value": 1.2200945951881952
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 3959",
+			"value": 1.2196235575712897
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 1909",
+			"value": 1.219511341742172
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 222 -\u003e 214",
+			"value": 1.2194479313120647
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 2546",
+			"value": 1.216044094795529
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 744",
+			"value": 1.2156613380244443
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 2050",
+			"value": 1.2156209496027253
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 2546",
+			"value": 1.215462777648807
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 744",
+			"value": 1.2150802038505888
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 2050",
+			"value": 1.215039834736132
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 153",
+			"value": 1.2142963263432682
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 820",
+			"value": 1.2142920143620328
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 153",
+			"value": 1.2137158446989544
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 820",
+			"value": 1.2137115347790164
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 1981",
+			"value": 1.2108023848881453
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 1981",
+			"value": 1.20950533127538
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.208903841166637
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.2087926116433814
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.2076088213399163
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.2074977109695932
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 2546",
+			"value": 1.204779631856877
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 744",
+			"value": 1.2044004206393464
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 2050",
+			"value": 1.2043604063437643
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e aCexai2546",
+			"value": 1.2039623274495521
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 2546",
+			"value": 1.2034890300265624
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e aCexai2546",
+			"value": 1.2033867858652056
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 744",
+			"value": 1.2031102250332726
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 2050",
+			"value": 1.2030702536023954
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 153",
+			"value": 1.203048053338057
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 820",
+			"value": 1.2030437812995776
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 153",
+			"value": 1.2017593064348564
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e 820",
+			"value": 1.2017550389727334
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e sdlpkl2546",
+			"value": 1.2006685060604996
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e sdlpkl2546",
+			"value": 1.1993823082110768
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 214",
+			"value": 1.1940226296247949
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e flDeds1880 -\u003e 1981",
+			"value": 1.1934310022480372
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e ewkMdU3074 -\u003e 1880 -\u003e 1981",
+			"value": 1.1928604950534332
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "msldjs2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e aCexai2546",
+			"value": 1.1928097803707645
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 214",
+			"value": 1.1927435510692788
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "esakdl2929 -\u003e exaeau38 -\u003e Udpldb1841 -\u003e aCexai2546",
+			"value": 1.1915320010615384
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3091 -\u003e 3074 -\u003e 222 -\u003e aCexai2546",
+			"value": 1.1893281610738846
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3956 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1879799660063017
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3958 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1879799660063017
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "67 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1879145577294739
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1878979595568049
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3958 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1878706616590438
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3956 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1878706616590438
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "130 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1878066894474724
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "67 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1878052594003385
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "2929 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1877886627548437
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "130 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1876974010431443
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3957 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.1876412399648135
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "3957 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.187531966783257
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "2078 -\u003e 38 -\u003e Udpldb1841 -\u003e 3959",
+			"value": 1.186972798012932
+		},
+		{
+			"in": 15,
+			"out": 15,
+			"chain": "2078 -\u003e 38 -\u003e Udpldb1841 -\u003e 1909",
+			"value": 1.1868635863337689
+		}
+	]
+]

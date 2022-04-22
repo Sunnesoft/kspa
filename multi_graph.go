@@ -66,8 +66,9 @@ func (g *MultiGraph) Remove(medges MEdgeSeq, status int) {
 
 	for _, medge := range medges {
 		if index, ok := g.GetEdgeIndex(medge.Data.Id1, medge.Data.Id2); ok {
-			g.Edges[index].RemoveMany(medge)
-			g.Edges[index].status = status
+			if !g.Edges[index].RemoveMany(medge) {
+				g.Edges[index].status = status
+			}
 
 			if g.Edges[index].Len() == 0 {
 				indeces = append(indeces, index)

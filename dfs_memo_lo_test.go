@@ -79,7 +79,7 @@ func TestOldPathsArbitrage(t *testing.T) {
 				panic(err)
 			}
 
-			if !IsChainViewsEquals(resPaths, wantPaths) {
+			if !IsChainViewsEquals(resPaths, wantPaths, 3) {
 				t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
 			}
 		})
@@ -165,7 +165,7 @@ func TestLimitOrdersArbitrage(t *testing.T) {
 				panic(err)
 			}
 
-			if !IsChainViewsEquals(resPaths, wantPaths) {
+			if !IsChainViewsEquals(resPaths, wantPaths, 3) {
 				t.Errorf("DfsMemo.Arbitrage() = %v, want %v", string(pathsb), string(wantResb))
 			}
 		})
@@ -476,7 +476,7 @@ func TestLimitOrdersUpdating(t *testing.T) {
 			}
 
 			// Result paths must be the same as paths with initial limit orders
-			if !IsChainViewsEquals(resChains, wantChains) {
+			if !IsChainViewsEquals(resChains, wantChains, 3) {
 				t.Errorf("DfsMemo.Arbitrage() watch in %v, want in %v", tt.loRecoverFilePathOutput, tt.loFilePathOutput)
 			}
 		})

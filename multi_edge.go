@@ -3,7 +3,6 @@ package kspa
 import (
 	"fmt"
 	"math"
-	"sort"
 )
 
 const (
@@ -176,33 +175,79 @@ func (e *MultiEdge) RemoveManyByIds(entityIds []string) error {
 	return nil
 }
 
-func (e *MultiEdge) RemoveMany(m *MultiEdge) {
-	indeces := make([]int, 0, len(m.edges))
-	for _, edge := range m.edges {
-		if index, ok := e.index[edge.Data.EntityId]; ok {
-			indeces = append(indeces, index)
-		}
+// func (e *MultiEdge) RemoveMany(m *MultiEdge) {
+// 	indeces := make([]int, 0, len(m.edges))
+// 	for _, edge := range m.edges {
+// 		if index, ok := e.index[edge.Data.EntityId]; ok {
+// 			indeces = append(indeces, index)
+// 		}
+// 	}
+
+// 	sort.Slice(indeces, func(i, j int) bool {
+// 		return indeces[j] < indeces[i]
+// 	})
+
+// 	for _, index := range indeces {
+// 		e.edges = append(e.edges[:index], e.edges[index+1:]...)
+// 	}
+
+// 	e.Weight = math.MaxFloat64
+// 	e.index = nil
+// 	e.index = make(map[string]int)
+
+// 	for i, edge := range e.edges {
+// 		if e.Weight > edge.Weight {
+// 			e.Data = edge.Data
+// 			e.Weight = edge.Weight
+// 		}
+// 		e.index[edge.Data.EntityId] = i
+// 	}
+// }
+
+func (e *MultiEdge) RemoveMany(m *MultiEdge) bool {
+	newSize := len(e.edges) - len(m.edges)
+
+	if newSize == 0 {
+		e.Weight = math.MaxFloat64
+		e.index = nil
+		e.index = make(map[string]int)
+		e.edges = nil
+		return false
 	}
 
-	sort.Slice(indeces, func(i, j int) bool {
-		return indeces[j] < indeces[i]
-	})
-
-	for _, index := range indeces {
-		e.edges = append(e.edges[:index], e.edges[index+1:]...)
+	indeces := make(map[int]bool)
+	for _, edge := range m.edges {
+		if index, ok := e.index[edge.Data.EntityId]; ok {
+			indeces[index] = true
+		}
 	}
 
 	e.Weight = math.MaxFloat64
 	e.index = nil
 	e.index = make(map[string]int)
 
+	edges := make(EdgeSeq, newSize)
+	j := 0
+	hasNonUndefStatus := false
 	for i, edge := range e.edges {
-		if e.Weight > edge.Weight {
-			e.Data = edge.Data
-			e.Weight = edge.Weight
+		if _, ok := indeces[i]; !ok {
+			edges[j] = edge
+
+			if edge.Status != UNDEFINED {
+				hasNonUndefStatus = true
+			}
+
+			if e.Weight > edge.Weight {
+				e.Data = edge.Data
+				e.Weight = edge.Weight
+			}
+			e.index[edge.Data.EntityId] = j
+			j++
 		}
-		e.index[edge.Data.EntityId] = i
 	}
+	e.edges = nil
+	e.edges = edges
+	return hasNonUndefStatus
 }
 
 type MEdgeSeq []*MultiEdge

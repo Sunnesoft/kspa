@@ -127,10 +127,12 @@ func EdgeSeqToChainView(seq EdgeSeq) *ChainView {
 	}
 }
 
-func IsChainViewsEquals(resPaths [][]ChainView, wantPaths [][]ChainView) bool {
+func IsChainViewsEquals(resPaths [][]ChainView, wantPaths [][]ChainView, mistakesAllowed int) bool {
 	if len(resPaths) != len(wantPaths) {
 		return false
 	}
+
+	totalMistakesCount := 0
 
 	for i := 0; i < len(resPaths); i++ {
 		freq := make(map[string]int)
@@ -145,8 +147,15 @@ func IsChainViewsEquals(resPaths [][]ChainView, wantPaths [][]ChainView) bool {
 		}
 
 		for _, v := range freq {
-			if v != 2 {
+			if mistakesAllowed == 0 && v != 2 {
 				return false
+			}
+
+			if mistakesAllowed > 0 && v != 2 {
+				totalMistakesCount++
+				if totalMistakesCount > mistakesAllowed {
+					return false
+				}
 			}
 		}
 	}
